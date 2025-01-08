@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Editar Colección</title>
+</head>
+<body>
+    <h1>Editar Colección</h1>
+    <form th:action="@{/colecciones/update/{id}(id=${coleccion.codcole})}" th:object="${coleccion}" method="post">
+        <label for="codcole">Código coleccion:</label>
+        <input type="text" id="codcole" name="codcole" th:field="*{codcole}" />
+        
+        <label for="descole">Nombre coleccion:</label>
+        <input type="text" id="descole" name="descole" th:field="*{descole}" />
+        <button type="submit">Actualizar</button>
+    </form>
+</body>
+</html>

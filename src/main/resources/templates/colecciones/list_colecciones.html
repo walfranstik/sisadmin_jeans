@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Lista de Colecciones</title>
+</head>
+<body>
+    <h1>Colecciones</h1>
+    <a href="/colecciones/new">Crear nueva colección</a>
+    <table>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Nombre</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr th:each="coleccion : ${colecciones}">
+                <td th:text="${coleccion.codcole}"></td>
+                <td th:text="${coleccion.descole}"></td>
+                <td>
+                    <a th:href="@{/colecciones/edit/{id}(id=${coleccion.codcole})}">Editar</a>
+                    <a th:href="@{/colecciones/delete/{id}(id=${coleccion.codcole})}" onclick="return confirm('¿Seguro que deseas eliminar?')">Eliminar</a>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</body>
+</html>
