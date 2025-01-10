@@ -16,6 +16,8 @@ public class Coleccion {
     @Column(name = "codcole")
     private String codcole;
 
+    @NotNull
+    @NotBlank
     @Column(name = "descole", nullable = false)
     private String descole;
 

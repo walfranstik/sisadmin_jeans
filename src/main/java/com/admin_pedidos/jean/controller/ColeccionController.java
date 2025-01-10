@@ -4,6 +4,7 @@ package com.admin_pedidos.jean.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -11,6 +12,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.admin_pedidos.jean.service.ColeccionService;
+
+import jakarta.validation.Valid;
+
 import com.admin_pedidos.jean.entity.Coleccion;
 
 @Controller
@@ -36,10 +40,15 @@ public class ColeccionController {
 
     // Guardar una nueva colección
     @PostMapping
-    public String saveColeccion(@ModelAttribute Coleccion coleccion) {
+    public String saveColeccion(@Valid @ModelAttribute Coleccion coleccion, BindingResult result, Model model) {
+        if (result.hasErrors()) {
+            model.addAttribute("coleccion", coleccion);
+            return "colecciones/create_coleccion"; // Vuelve al formulario si hay errores
+        }
         coleccionService.save(coleccion);
         return "redirect:/colecciones"; // Redirige a la lista de colecciones
     }
+
 
     // Mostrar un formulario para editar una colección
     @GetMapping("/edit/{id}")
@@ -52,7 +61,11 @@ public class ColeccionController {
 
     // Actualizar una colección
     @PostMapping("/update/{id}")
-    public String updateColeccion(@PathVariable String id, @ModelAttribute Coleccion coleccion) {
+    public String updateColeccion(@PathVariable String id,@Valid @ModelAttribute Coleccion coleccion,BindingResult result, Model model) {
+        if (result.hasErrors()) {
+            model.addAttribute("coleccion", coleccion);
+            return "colecciones/edit_coleccion"; // Vuelve al formulario si hay errores
+        }
         coleccionService.update(id, coleccion);
         return "redirect:/colecciones"; // Redirige a la lista de colecciones
     }
