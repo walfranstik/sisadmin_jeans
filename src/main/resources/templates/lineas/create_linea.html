@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Crear Linea</title>
+     <!-- Fonts and icons -->
+     <script src="/assets/js/plugin/webfont/webfont.min.js"></script>
+     <script>
+       WebFont.load({
+         google: { families: ["Public Sans:300,400,500,600,700"] },
+         custom: {
+           families: [
+             "Font Awesome 5 Solid",
+             "Font Awesome 5 Regular",
+             "Font Awesome 5 Brands",
+             "simple-line-icons",
+           ],
+           urls: ["/assets/css/fonts.min.css"],
+         },
+         active: function () {
+           sessionStorage.fonts = true;
+         },
+       });
+     </script>
+ 
+     <!-- CSS Files -->
+     <link rel="stylesheet" href="/assets/css/bootstrap.min.css" />
+     <link rel="stylesheet" href="/assets/css/plugins.min.css" />
+     <link rel="stylesheet" href="/assets/css/kaiadmin.min.css" />
+ 
+     <!-- CSS Just for demo purpose, don't include it in your project -->
+     <link rel="stylesheet" href="/assets/css/demo.css" />
+</head>
+<body>
+    <h1>Crear Nueva Linea</h1>
+    
+    <form th:action="@{/lineas}" th:object="${linea}" method="post">
+      <div class="row">
+
+          <div class="col-md-6 form-inline">
+            <label
+              for="codlin"
+              class="col-md-3 col-form-label"
+              >Código de la linea:</label
+            >
+            <div class="col-md-9 p-0">
+              <input
+                type="text"
+                class="form-control input-full"
+                id="codlin"
+                name="codlin"
+                th:field="*{codlin}"
+              />
+               <!-- Mostrar error -->
+               <div class="text-danger" th:if="${#fields.hasErrors('codlin')}" th:errors="*{codlin}"></div>
+            </div>
+          </div>
+
+          <div class="col-md-6 form-group form-inline">
+            <label
+              for="deslin"
+              class="col-md-3 col-form-label"
+              >Nombre de la linea:</label
+            >
+            <div class="col-md-9 p-0">
+              <input
+                type="text"
+                class="form-control input-full"
+                id="deslin"
+                name="deslin"
+                th:field="*{deslin}"
+              />
+               <!-- Mostrar error -->
+               <div class="text-danger" th:if="${#fields.hasErrors('deslin')}" th:errors="*{deslin}"></div>
+            </div>
+          </div>
+
+        
+        <div class="card-action">
+            <button type="submit" class="btn btn-success">Enviar</button>
+        </div>
+      </div>
+
+    </form>
+</body>
+</html>

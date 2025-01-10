@@ -4,74 +4,108 @@ import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 
 @Entity
 @Table(name = "dir")
 public class Directorio {
- @Id
+    @Id
+    @NotNull
+    @NotBlank
     @Column(name = "nitdir")
     private String nitdir;
 
     @Column(name = "dcnitdir", nullable = false)
     private char dcnitdir;
 
+    @NotNull
+    @NotBlank
     @Column(name = "nomdir", nullable = false)
     private String nomdir;
 
+    @NotNull
+    @NotBlank
     @Column(name = "diredir", nullable = false)
     private String diredir;
 
+    @NotNull
+    @NotBlank
     @Column(name = "ciudir", nullable = false)
     private String ciudir;
 
+    @NotNull
+    @NotBlank
     @Column(name = "dptodir", nullable = false)
     private String dptodir;
 
+    @NotNull
+    @NotBlank
     @Column(name = "preteldir", nullable = false)
     private String preteldir;
 
+    @NotNull
+    @NotBlank
     @Column(name = "teldir", nullable = false)
     private String teldir;
 
+    @NotNull
+    @NotBlank
     @Column(name = "prefaxdir", nullable = false)
     private String prefaxdir;
 
+    @NotNull
+    @NotBlank
     @Column(name = "faxdir", nullable = false)
     private String faxdir;
 
+    @NotNull
+    @NotBlank
     @Column(name = "almacen", nullable = false)
     private String almacen;
 
+    @NotNull
+    @NotBlank
     @Column(name = "contacdir", nullable = false)
     private String contacdir;
 
+    @NotNull
+    @NotBlank
     @Column(name = "pretelcontacdir", nullable = false)
     private String pretelcontacdir;
 
+    @NotNull
+    @NotBlank
     @Column(name = "telcontacdir", nullable = false)
     private String telcontacdir;
 
+    @NotNull
+    @NotBlank
     @Column(name = "provee", nullable = false)
     private String provee;
 
+    @NotNull
+    @NotBlank
     @Column(name = "clte", nullable = false)
     private String clte;
 
+    @NotNull
+    @NotBlank
     @Column(name = "vddor", nullable = false)
     private String vddor;
 
+    @NotNull
+    @NotBlank
     @Column(name = "empl", nullable = false)
     private String empl;
 
+    @NotNull
+    @NotBlank
     @Column(name = "tercero", nullable = false)
     private String tercero;
 
-    @Column(name = "sexo", nullable = false)
-    private String sexo;
-
-    @Column(name = "foto", nullable = false)
-    private String foto;
-
+    @NotNull
+    @NotBlank
     @Column(name = "nomvddor", nullable = false)
     private String nomvddor;
 
@@ -232,21 +266,7 @@ public class Directorio {
         this.tercero = tercero;
     }
 
-    public String getSexo() {
-        return sexo;
-    }
-
-    public void setSexo(String sexo) {
-        this.sexo = sexo;
-    }
-
-    public String getFoto() {
-        return foto;
-    }
-
-    public void setFoto(String foto) {
-        this.foto = foto;
-    }
+    
 
     public String getNomvddor() {
         return nomvddor;

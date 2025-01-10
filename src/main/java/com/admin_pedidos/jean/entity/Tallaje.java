@@ -4,14 +4,21 @@ import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 
 @Entity
 @Table(name = "tiptalla")
 public class Tallaje {
     @Id
+    @NotNull
+    @NotBlank
     @Column(name = "codtall")
     private String codtall;
 
+
+    @NotNull
+    @NotBlank
     @Column(name = "destall")
     private String destall;
 

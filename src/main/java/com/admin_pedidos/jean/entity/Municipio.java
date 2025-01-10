@@ -6,6 +6,8 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 
 @Entity
 @Table(name = "municipios")
@@ -16,9 +18,13 @@ public class Municipio {
     @Column(name = "id_municipio")
     private int id_municipio;
 
+    @NotNull
+    @NotBlank
     @Column(name = "departamento")
     private String departamento;
     
+    @NotNull
+    @NotBlank
     @Column(name = "municipio")
     private String municipio;
 

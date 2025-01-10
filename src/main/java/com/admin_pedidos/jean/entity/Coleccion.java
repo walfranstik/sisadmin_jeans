@@ -21,9 +21,6 @@ public class Coleccion {
     @Column(name = "descole", nullable = false)
     private String descole;
 
-
-
-
     
     public String getCodcole() {
         return codcole;

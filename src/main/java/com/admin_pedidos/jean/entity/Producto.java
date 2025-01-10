@@ -2,45 +2,56 @@ package com.admin_pedidos.jean.entity;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 
 @Entity
 @Table(name = "pdtos")
 public class Producto {
     @Id
-    @Column(name="id_pdto")
-    private int id_pdto;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private long id_pdto;
     
+    @NotNull
+    @NotBlank
     @Column(name = "ref")
     private String ref;
 
+
+    @NotNull
+    @NotBlank
     @Column(name = "descref", nullable = false)
     private String descref;
 
+    @NotNull
     @Column(name = "cole", nullable = false)
     private String cole;
 
+    @NotNull
     @Column(name = "marca", nullable = false)
     private String marca;
 
+    @NotNull
     @Column(name = "linea", nullable = false)
     private String linea;
 
+    @NotNull
     @Column(name = "tipopr", nullable = false)
     private String tipopr;
 
+    @NotNull
     @Column(name = "ttalla", nullable = false)
     private String ttalla;
 
+
+    @NotNull
     @Column(name = "pcosto", nullable = false)
     private double pcosto;
 
-    @Column(name = "iva", nullable = false)
-    private double iva;
-
-    @Column(name = "foto", nullable = false)
-    private String foto;
 
 
 
@@ -110,27 +121,12 @@ public class Producto {
         this.pcosto = pcosto;
     }
 
-    public double getIva() {
-        return iva;
-    }
 
-    public void setIva(double iva) {
-        this.iva = iva;
-    }
-
-    public String getFoto() {
-        return foto;
-    }
-
-    public void setFoto(String foto) {
-        this.foto = foto;
-    }
-
-    public int getId_pdto() {
+    public long getId_pdto() {
         return id_pdto;
     }
 
-    public void setId_pdto(int id_pdto) {
+    public void setId_pdto(long id_pdto) {
         this.id_pdto = id_pdto;
     }
 
