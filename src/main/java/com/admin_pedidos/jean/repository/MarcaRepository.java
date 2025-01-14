@@ -7,6 +7,7 @@ import com.admin_pedidos.jean.entity.Marca;
 
 @Repository
 public interface MarcaRepository extends JpaRepository<Marca, String> {
+    boolean existsByCodmar(String codmar);
 }
 
 

@@ -22,6 +22,9 @@ public class TipoPrendaService {
     public Optional<TipoPrenda> findById(String id) {
         return tipoPrendaRepository.findById(id);
     }
+    public boolean existsByCodpre(String codpre) {
+        return tipoPrendaRepository.existsByCodpre(codpre);
+    }
 
     public TipoPrenda save(TipoPrenda tipoPrenda) {
         return tipoPrendaRepository.save(tipoPrenda);

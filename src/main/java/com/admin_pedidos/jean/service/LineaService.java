@@ -23,6 +23,9 @@ public class LineaService {
     public Optional<Linea> findById(String id) {
         return lineaRepository.findById(id);
     }
+    public boolean existsByCodlin(String codlin) {
+        return lineaRepository.existsByCodlin(codlin);
+    }
 
     public Linea save(Linea linea) {
         return lineaRepository.save(linea);

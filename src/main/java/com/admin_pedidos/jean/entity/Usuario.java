@@ -14,7 +14,7 @@ import jakarta.validation.constraints.NotNull;
 public class Usuario {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id_usuario")
+    @Column(name = "id_usuario",unique = true)
     private int id_usuario;
 
     @NotNull

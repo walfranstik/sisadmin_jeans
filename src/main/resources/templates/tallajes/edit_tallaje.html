@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Editar Tallaje</title>
+     <!-- Fonts and icons -->
+     <script src="/assets/js/plugin/webfont/webfont.min.js"></script>
+     <script>
+       WebFont.load({
+         google: { families: ["Public Sans:300,400,500,600,700"] },
+         custom: {
+           families: [
+             "Font Awesome 5 Solid",
+             "Font Awesome 5 Regular",
+             "Font Awesome 5 Brands",
+             "simple-line-icons",
+           ],
+           urls: ["/assets/css/fonts.min.css"],
+         },
+         active: function () {
+           sessionStorage.fonts = true;
+         },
+       });
+     </script>
+ 
+     <!-- CSS Files -->
+     <link rel="stylesheet" href="/assets/css/bootstrap.min.css" />
+     <link rel="stylesheet" href="/assets/css/plugins.min.css" />
+     <link rel="stylesheet" href="/assets/css/kaiadmin.min.css" />
+ 
+     <!-- CSS Just for demo purpose, don't include it in your project -->
+     <link rel="stylesheet" href="/assets/css/demo.css" />
+</head>
+<body>
+    <h1>Editar Tallaje</h1>
+    <form th:action="@{/tallajes/update/{id}(id=${tallaje.codtall})}" th:object="${tallaje}" method="post">
+        <div class="row">
+
+            <div class="col-md-6 form-inline">
+              <label
+                for="codtall"
+                class="col-md-3 col-form-label"
+                >Código del tallaje:</label
+              >
+              <div class="col-md-9 p-0">
+                <input
+                  type="text"
+                  th:readonly="true"
+                  class="form-control"
+                  id="codtall"
+                  name="codtall"
+                  th:field="*{codtall}"
+                  
+                />
+                
+                 <!-- Mostrar error -->
+                 <div class="text-danger" th:if="${#fields.hasErrors('codtall')}" th:errors="*{codtall}"></div>
+              </div>
+            </div>
+  
+            <div class="col-md-6 form-group form-inline">
+              <label
+                for="destall"
+                class="col-md-3 col-form-label"
+                >Nombre del tallaje:</label
+              >
+              <div class="col-md-9 p-0">
+                <input
+                  type="text"
+                  class="form-control input-full"
+                  id="destall"
+                  name="destall"
+                  style="text-transform: uppercase;"
+                  oninput="this.value = this.value.toUpperCase();"
+                  th:field="*{destall}"
+                />
+                 <!-- Mostrar error -->
+                 <div class="text-danger" th:if="${#fields.hasErrors('destall')}" th:errors="*{destall}"></div>
+              </div>
+            </div>
+
+
+          <div class="col-md-3 form-group form-inline d-flex">
+            <label for="t1" class="col-md-1 col-form-label">T1:</label>
+            <div class="col-md-11 p-0">
+              <input type="text" class="form-control input-full" id="t1" name="t1" th:field="*{t1}"/>
+            </div>
+          </div>
+          <div class="col-md-3 form-group form-inline d-flex">
+            <label for="t2" class="col-md-1 col-form-label">T2:</label>
+            <div class="col-md-11 p-0">
+              <input type="text" class="form-control input-full" id="t2" name="t2" th:field="*{t2}"/>
+            </div>
+          </div>
+          <div class="col-md-3 form-group form-inline d-flex">
+            <label for="t3" class="col-md-1 col-form-label">T3:</label>
+            <div class="col-md-11 p-0">
+              <input type="text" class="form-control input-full" id="t3" name="t3" th:field="*{t3}"/>
+            </div>
+          </div>
+          <div class="col-md-3 form-group form-inline d-flex">
+            <label for="t4" class="col-md-1 col-form-label">T4:</label>
+            <div class="col-md-11 p-0">
+              <input type="text" class="form-control input-full" id="t4" name="t4" th:field="*{t4}"/>
+            </div>
+          </div>
+          <div class="col-md-3 form-group form-inline d-flex">
+            <label for="t5" class="col-md-1 col-form-label">T5:</label>
+            <div class="col-md-11 p-0">
+              <input type="text" class="form-control input-full" id="t5" name="t5" th:field="*{t5}"/>
+            </div>
+          </div>
+          <div class="col-md-3 form-group form-inline d-flex">
+            <label for="t6" class="col-md-1 col-form-label">T6:</label>
+            <div class="col-md-11 p-0">
+              <input type="text" class="form-control input-full" id="t6" name="t6" th:field="*{t6}"/>
+            </div>
+          </div>
+          <div class="col-md-3 form-group form-inline d-flex">
+            <label for="t7" class="col-md-1 col-form-label">T7:</label>
+            <div class="col-md-11 p-0">
+              <input type="text" class="form-control input-full" id="t7" name="t7" th:field="*{t7}"/>
+            </div>
+          </div>
+          <div class="col-md-3 form-group form-inline d-flex">
+            <label for="t8" class="col-md-1 col-form-label">T8:</label>
+            <div class="col-md-11 p-0">
+              <input type="text" class="form-control input-full" id="t8" name="t8" th:field="*{t8}"/>
+            </div>
+          </div>
+          <div class="col-md-3 form-group form-inline d-flex">
+            <label for="t9" class="col-md-1 col-form-label">T9:</label>
+            <div class="col-md-11 p-0">
+              <input type="text" class="form-control input-full" id="t9" name="t9" th:field="*{t9}"/>
+            </div>
+          </div>
+          <div class="col-md-3 form-group form-inline d-flex">
+            <label for="t10" class="col-md-1 col-form-label">T10:</label>
+            <div class="col-md-11 p-0">
+              <input type="text" class="form-control input-full" id="t10" name="t10" th:field="*{t10}"/>
+            </div>
+          </div>
+
+  
+          
+          <div class="card-action">
+              <button type="submit" class="btn btn-success">Actualizar</button>
+          </div>
+        </div>
+    </form>
+</body>
+</html>

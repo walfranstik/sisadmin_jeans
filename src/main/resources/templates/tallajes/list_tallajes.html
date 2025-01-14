@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>Lista de Lineas</title>
+    <title>Lista de Tallajes</title>
      <!-- Fonts and icons -->
      <script src="/assets/js/plugin/webfont/webfont.min.js"></script>
      <script>
@@ -36,12 +36,12 @@
     <div class="col-md-12">
         <div class="card">
           <div class="card-header">
-            <h1>Lineas</h1>
-            <a class="btn btn-primary" href="/lineas/new">
+            <h1>Tallajes</h1>
+            <a class="btn btn-primary" href="/tallajes/new">
                 <span class="btn-label">
                 <i class="fas fa-plus-circle"></i>
               </span>
-              Crear nueva Linea
+              Crear nuevo Tallaje
             </a>
           </div>
           <div class="card-body">
@@ -52,25 +52,55 @@
               >
                 <thead>
                   <tr>
-                    <th>Código Linea</th>
-                    <th>Nombre Linea</th>
+                    <th>Código Tallaje</th>
+                    <th>Nombre Tallaje</th>
+                    <th>T1</th>
+                    <th>T2</th>
+                    <th>T3</th>
+                    <th>T4</th>
+                    <th>T5</th>
+                    <th>T6</th>
+                    <th>T7</th>
+                    <th>T8</th>
+                    <th>T9</th>
+                    <th>T10</th>
                     <th>Acciones</th>
                   </tr>
                 </thead>
                 <tfoot>
                     <tr>
-                        <th>Código Linea</th>
-                        <th>Nombre Linea</th>
+                        <th>Código Tallaje</th>
+                        <th>Nombre Tallaje</th>
+                        <th>T1</th>
+                        <th>T2</th>
+                        <th>T3</th>
+                        <th>T4</th>
+                        <th>T5</th>
+                        <th>T6</th>
+                        <th>T7</th>
+                        <th>T8</th>
+                        <th>T9</th>
+                        <th>T10</th>
                         <th>Acciones</th>
                     </tr>
                 </tfoot>
                 <tbody>
-                    <tr th:each="linea : ${lineas}">
-                        <td th:text="${linea.codlin}"></td>
-                        <td th:text="${linea.deslin}"></td>
+                    <tr th:each="tallaje : ${tallajes}">
+                        <td th:text="${tallaje.codtall}"></td>
+                        <td th:text="${tallaje.destall}"></td>
+                        <td th:text="${tallaje.t1}"></td>
+                        <td th:text="${tallaje.t2}"></td>
+                        <td th:text="${tallaje.t3}"></td>
+                        <td th:text="${tallaje.t4}"></td>
+                        <td th:text="${tallaje.t5}"></td>
+                        <td th:text="${tallaje.t6}"></td>
+                        <td th:text="${tallaje.t7}"></td>
+                        <td th:text="${tallaje.t8}"></td>
+                        <td th:text="${tallaje.t9}"></td>
+                        <td th:text="${tallaje.t10}"></td>
                         <td>
                             
-                            <a class="btn btn-primary" th:href="@{/lineas/edit/{id}(id=${linea.codlin})}">
+                            <a class="btn btn-primary" th:href="@{/tallajes/edit/{id}(id=${tallaje.codtall})}">
                                 <span class="btn-label">
                                   <i class="fas fa-edit"></i>
                                 </span>
@@ -80,7 +110,7 @@
                             <button
                               type="button"
                               class="btn btn-danger alert_demo_8"
-                              th:data-href="@{/lineas/delete/{id}(id=${linea.codlin})}"
+                              th:data-href="@{/tallajes/delete/{id}(id=${tallaje.codtall})}"
                               >
                               <span class="btn-label">
                                 <i class="fas fa-trash-alt"></i>

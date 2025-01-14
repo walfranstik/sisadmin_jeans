@@ -22,6 +22,9 @@ public class MarcaService {
     public Optional<Marca> findById(String id) {
         return marcaRepository.findById(id);
     }
+    public boolean existsByCodmar(String codmar) {
+        return marcaRepository.existsByCodmar(codmar);
+    }   
 
     public Marca save(Marca marca) {
         return marcaRepository.save(marca);

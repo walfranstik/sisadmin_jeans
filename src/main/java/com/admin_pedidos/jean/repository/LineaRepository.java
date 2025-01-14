@@ -7,5 +7,6 @@ import com.admin_pedidos.jean.entity.Linea;
 
 @Repository
 public interface LineaRepository extends JpaRepository<Linea, String> {
+    boolean existsByCodlin(String codlin);
 }
 

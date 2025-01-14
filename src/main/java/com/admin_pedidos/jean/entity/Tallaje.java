@@ -13,7 +13,7 @@ public class Tallaje {
     @Id
     @NotNull
     @NotBlank
-    @Column(name = "codtall")
+    @Column(name = "codtall",unique = true)
     private String codtall;
 
 

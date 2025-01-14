@@ -45,6 +45,11 @@ public class ColeccionController {
             model.addAttribute("coleccion", coleccion);
             return "colecciones/create_coleccion"; // Vuelve al formulario si hay errores
         }
+        if (coleccionService.existsByCodcole(coleccion.getCodcole())) {
+            result.rejectValue("codcole", "error.coleccion", "El código ya existe. Por favor, usa otro.");
+            model.addAttribute("coleccion", coleccion);
+            return "colecciones/create_coleccion"; // Renderiza la plantilla create_colecciones.html en templates/colecciones
+        }
         coleccionService.save(coleccion);
         return "redirect:/colecciones"; // Redirige a la lista de colecciones
     }

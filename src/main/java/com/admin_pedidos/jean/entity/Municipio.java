@@ -15,7 +15,6 @@ import jakarta.validation.constraints.NotNull;
 public class Municipio {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id_municipio")
     private int id_municipio;
 
     @NotNull
@@ -26,7 +25,7 @@ public class Municipio {
     @NotNull
     @NotBlank
     @Column(name = "municipio")
-    private String municipio;
+    private String nombreMunicipio;
 
     public String getDepartamento() {
         return departamento;
@@ -36,12 +35,12 @@ public class Municipio {
         this.departamento = departamento;
     }
 
-    public String getMunicipio() {
-        return municipio;
+    public String getNombreMunicipio() {
+        return nombreMunicipio;
     }
 
-    public void setMunicipio(String municipio) {
-        this.municipio = municipio;
+    public void setNombreMunicipio(String municipio) {
+        this.nombreMunicipio = municipio;
     }
 
     public int getId_municipio() {

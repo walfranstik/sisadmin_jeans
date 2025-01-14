@@ -23,6 +23,9 @@ public class TallajeService {
     public Optional<Tallaje> findById(String id) {
         return tallajeRepository.findById(id);
     }
+    public boolean existsByCodtall(String codtall) {
+        return tallajeRepository.existsByCodtall(codtall);
+    }
 
     public Tallaje save(Tallaje tallaje) {
         return tallajeRepository.save(tallaje);

@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>Editar Colección</title>
+    <title>Editar Municipio</title>
      <!-- Fonts and icons -->
      <script src="/assets/js/plugin/webfont/webfont.min.js"></script>
      <script>
@@ -31,50 +31,51 @@
      <link rel="stylesheet" href="/assets/css/demo.css" />
 </head>
 <body>
-    <h1>Editar Colección</h1>
-    <form th:action="@{/colecciones/update/{id}(id=${coleccion.codcole})}" th:object="${coleccion}" method="post">
+    <h1>Editar Municipio</h1>
+    <form th:action="@{/municipios/update/{id}(id=${municipio.id_municipio})}" th:object="${municipio}" method="post">
         <div class="row">
 
             <div class="col-md-6 form-inline">
               <label
-                for="codcole"
+                for="nombreMunicipio"
                 class="col-md-3 col-form-label"
-                >Código de la coleccion:</label
+                >Municipio:</label
               >
               <div class="col-md-9 p-0">
                 <input
                   type="text"
-                  th:readonly="true"
                   class="form-control"
-                  id="codcole"
-                  name="codcole"
-                  th:field="*{codcole}"
+                  id="nombreMunicipio"
+                  name="nombreMunicipio"
+                  style="text-transform: uppercase;"
+                oninput="this.value = this.value.toUpperCase();"
+                  th:field="*{nombreMunicipio}"
                   
                 />
                 
                  <!-- Mostrar error -->
-                 <div class="text-danger" th:if="${#fields.hasErrors('codcole')}" th:errors="*{codcole}"></div>
+                 <div class="text-danger" th:if="${#fields.hasErrors('nombreMunicipio')}" th:errors="*{nombreMunicipio}"></div>
               </div>
             </div>
   
             <div class="col-md-6 form-group form-inline">
               <label
-                for="descole"
+                for="departamento"
                 class="col-md-3 col-form-label"
-                >Nombre de la coleccion:</label
+                >Departamento:</label
               >
               <div class="col-md-9 p-0">
                 <input
                   type="text"
                   class="form-control input-full"
-                  id="descole"
-                  name="descole"
+                  id="departamento"
+                  name="departamento"
                   style="text-transform: uppercase;"
                 oninput="this.value = this.value.toUpperCase();"
-                  th:field="*{descole}"
+                  th:field="*{departamento}"
                 />
                  <!-- Mostrar error -->
-                 <div class="text-danger" th:if="${#fields.hasErrors('descole')}" th:errors="*{descole}"></div>
+                 <div class="text-danger" th:if="${#fields.hasErrors('departamento')}" th:errors="*{departamento}"></div>
               </div>
             </div>
   

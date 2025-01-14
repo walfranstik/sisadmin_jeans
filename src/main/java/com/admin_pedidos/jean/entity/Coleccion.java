@@ -13,7 +13,7 @@ public class Coleccion {
     @Id
     @NotNull
     @NotBlank
-    @Column(name = "codcole")
+    @Column(name = "codcole",unique = true)
     private String codcole;
 
     @NotNull

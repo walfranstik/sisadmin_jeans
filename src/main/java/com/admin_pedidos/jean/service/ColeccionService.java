@@ -22,6 +22,10 @@ public class ColeccionService {
     public Optional<Coleccion> findById(String id) {
         return coleccionRepository.findById(id);
     }
+    
+    public boolean existsByCodcole(String codcole) {
+        return coleccionRepository.existsByCodcole(codcole);
+    }
 
     public Coleccion save(Coleccion coleccion) {
         return coleccionRepository.save(coleccion);

@@ -14,7 +14,7 @@ public class Marca {
     @Id
     @NotNull
     @NotBlank
-    @Column(name = "codmar")
+    @Column(name = "codmar",unique = true)
     private String codmar;
 
     @NotNull

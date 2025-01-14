@@ -14,7 +14,7 @@ public class Linea {
     @Id
     @NotNull
     @NotBlank
-    @Column(name = "codlin")
+    @Column(name = "codlin",unique = true)
     private String codlin;
 
     @NotNull

@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>Crear Linea</title>
+    <title>Crear Municipio</title>
      <!-- Fonts and icons -->
      <script src="/assets/js/plugin/webfont/webfont.min.js"></script>
      <script>
@@ -31,48 +31,50 @@
      <link rel="stylesheet" href="/assets/css/demo.css" />
 </head>
 <body>
-    <h1>Crear Nueva Linea</h1>
+    <h1>Crear Nuevo Municipio</h1>
     
-    <form th:action="@{/lineas}" th:object="${linea}" method="post">
+    <form th:action="@{/municipios}" th:object="${municipio}" method="post">
       <div class="row">
 
           <div class="col-md-6 form-inline">
             <label
-              for="codlin"
+              for="municipio"
               class="col-md-3 col-form-label"
-              >Código de la linea:</label
+              >Municipio:</label
             >
             <div class="col-md-9 p-0">
               <input
                 type="text"
                 class="form-control input-full"
-                id="codlin"
-                name="codlin"
-                th:field="*{codlin}"
+                id="municipio"
+                name="nombreMunicipio"
+                style="text-transform: uppercase;"
+                oninput="this.value = this.value.toUpperCase();"
+                th:field="*{nombreMunicipio}"
               />
                <!-- Mostrar error -->
-               <div class="text-danger" th:if="${#fields.hasErrors('codlin')}" th:errors="*{codlin}"></div>
+               <div class="text-danger" th:if="${#fields.hasErrors('nombreMunicipio')}" th:errors="*{nombreMunicipio}"></div>
             </div>
           </div>
 
           <div class="col-md-6 form-group form-inline">
             <label
-              for="deslin"
+              for="departamento"
               class="col-md-3 col-form-label"
-              >Nombre de la linea:</label
+              >departamento:</label
             >
             <div class="col-md-9 p-0">
               <input
                 type="text"
                 class="form-control input-full"
-                id="deslin"
-                name="deslin"
+                id="departamento"
+                name="departamento"
                 style="text-transform: uppercase;"
                 oninput="this.value = this.value.toUpperCase();"
-                th:field="*{deslin}"
+                th:field="*{departamento}"
               />
                <!-- Mostrar error -->
-               <div class="text-danger" th:if="${#fields.hasErrors('deslin')}" th:errors="*{deslin}"></div>
+               <div class="text-danger" th:if="${#fields.hasErrors('departamento')}" th:errors="*{departamento}"></div>
             </div>
           </div>
 

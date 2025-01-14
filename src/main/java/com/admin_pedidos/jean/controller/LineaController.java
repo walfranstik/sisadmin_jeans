@@ -42,6 +42,11 @@ public class LineaController {
             model.addAttribute("linea", linea);
             return "lineas/create_linea"; // Vuelve al formulario si hay errores
         }
+        if (lineaService.existsByCodlin(linea.getCodlin())) {
+            result.rejectValue("codlin", "error.linea", "El código ya existe. Por favor, usa otro.");
+            model.addAttribute("linea", linea);
+            return "lineas/create_linea"; // Vuelve al formulario si hay errores
+        }
         lineaService.save(linea);
         return "redirect:/lineas"; // Redirige a la lista de líneas
     }

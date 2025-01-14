@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>Crear Linea</title>
+    <title>Crear Tipo de prenda</title>
      <!-- Fonts and icons -->
      <script src="/assets/js/plugin/webfont/webfont.min.js"></script>
      <script>
@@ -31,48 +31,48 @@
      <link rel="stylesheet" href="/assets/css/demo.css" />
 </head>
 <body>
-    <h1>Crear Nueva Linea</h1>
+    <h1>Crear Nuevo Tipo de prenda</h1>
     
-    <form th:action="@{/lineas}" th:object="${linea}" method="post">
+    <form th:action="@{/tipo-prenda}" th:object="${tipoPrenda}" method="post">
       <div class="row">
 
           <div class="col-md-6 form-inline">
             <label
-              for="codlin"
-              class="col-md-3 col-form-label"
-              >Código de la linea:</label
+              for="codpre"
+              class="col-md-5 col-form-label"
+              >Código del Tipo de prenda:</label
             >
             <div class="col-md-9 p-0">
               <input
                 type="text"
                 class="form-control input-full"
-                id="codlin"
-                name="codlin"
-                th:field="*{codlin}"
+                id="codpre"
+                name="codpre"
+                th:field="*{codpre}"
               />
                <!-- Mostrar error -->
-               <div class="text-danger" th:if="${#fields.hasErrors('codlin')}" th:errors="*{codlin}"></div>
+               <div class="text-danger" th:if="${#fields.hasErrors('codpre')}" th:errors="*{codpre}"></div>
             </div>
           </div>
 
           <div class="col-md-6 form-group form-inline">
             <label
-              for="deslin"
-              class="col-md-3 col-form-label"
-              >Nombre de la linea:</label
+              for="despre"
+              class="col-md-5 col-form-label"
+              >Nombre del Tipo de prenda:</label
             >
             <div class="col-md-9 p-0">
               <input
                 type="text"
                 class="form-control input-full"
-                id="deslin"
-                name="deslin"
+                id="despre"
+                name="despre"
                 style="text-transform: uppercase;"
                 oninput="this.value = this.value.toUpperCase();"
-                th:field="*{deslin}"
+                th:field="*{despre}"
               />
                <!-- Mostrar error -->
-               <div class="text-danger" th:if="${#fields.hasErrors('deslin')}" th:errors="*{deslin}"></div>
+               <div class="text-danger" th:if="${#fields.hasErrors('despre')}" th:errors="*{despre}"></div>
             </div>
           </div>
 

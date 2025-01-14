@@ -8,4 +8,5 @@ import com.admin_pedidos.jean.entity.Coleccion;
 
 @Repository
 public interface ColeccionRepository extends JpaRepository<Coleccion, String> {
+    boolean existsByCodcole(String codcole);
 }

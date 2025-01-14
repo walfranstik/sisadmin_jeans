@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>Lista de Lineas</title>
+    <title>Lista de Marcas</title>
      <!-- Fonts and icons -->
      <script src="/assets/js/plugin/webfont/webfont.min.js"></script>
      <script>
@@ -36,12 +36,12 @@
     <div class="col-md-12">
         <div class="card">
           <div class="card-header">
-            <h1>Lineas</h1>
-            <a class="btn btn-primary" href="/lineas/new">
+            <h1>Marcas</h1>
+            <a class="btn btn-primary" href="/marcas/new">
                 <span class="btn-label">
                 <i class="fas fa-plus-circle"></i>
               </span>
-              Crear nueva Linea
+              Crear nueva Marca
             </a>
           </div>
           <div class="card-body">
@@ -52,25 +52,25 @@
               >
                 <thead>
                   <tr>
-                    <th>Código Linea</th>
-                    <th>Nombre Linea</th>
+                    <th>Código Marca</th>
+                    <th>Nombre Marca</th>
                     <th>Acciones</th>
                   </tr>
                 </thead>
                 <tfoot>
                     <tr>
-                        <th>Código Linea</th>
-                        <th>Nombre Linea</th>
+                        <th>Código Marca</th>
+                        <th>Nombre Marca</th>
                         <th>Acciones</th>
                     </tr>
                 </tfoot>
                 <tbody>
-                    <tr th:each="linea : ${lineas}">
-                        <td th:text="${linea.codlin}"></td>
-                        <td th:text="${linea.deslin}"></td>
+                    <tr th:each="marca : ${marcas}">
+                        <td th:text="${marca.codmar}"></td>
+                        <td th:text="${marca.desmar}"></td>
                         <td>
                             
-                            <a class="btn btn-primary" th:href="@{/lineas/edit/{id}(id=${linea.codlin})}">
+                            <a class="btn btn-primary" th:href="@{/marcas/edit/{id}(id=${marca.codmar})}">
                                 <span class="btn-label">
                                   <i class="fas fa-edit"></i>
                                 </span>
@@ -80,7 +80,7 @@
                             <button
                               type="button"
                               class="btn btn-danger alert_demo_8"
-                              th:data-href="@{/lineas/delete/{id}(id=${linea.codlin})}"
+                              th:data-href="@{/marcas/delete/{id}(id=${marca.codmar})}"
                               >
                               <span class="btn-label">
                                 <i class="fas fa-trash-alt"></i>

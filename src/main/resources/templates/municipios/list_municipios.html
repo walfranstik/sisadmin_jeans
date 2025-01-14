@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>Lista de Lineas</title>
+    <title>Lista de Municipios</title>
      <!-- Fonts and icons -->
      <script src="/assets/js/plugin/webfont/webfont.min.js"></script>
      <script>
@@ -36,12 +36,12 @@
     <div class="col-md-12">
         <div class="card">
           <div class="card-header">
-            <h1>Lineas</h1>
-            <a class="btn btn-primary" href="/lineas/new">
+            <h1>Municipios</h1>
+            <a class="btn btn-primary" href="/municipios/new">
                 <span class="btn-label">
                 <i class="fas fa-plus-circle"></i>
               </span>
-              Crear nueva Linea
+              Crear nuevo Municipio
             </a>
           </div>
           <div class="card-body">
@@ -52,25 +52,25 @@
               >
                 <thead>
                   <tr>
-                    <th>Código Linea</th>
-                    <th>Nombre Linea</th>
+                    <th>Municipio</th>
+                    <th>Departamento</th>
                     <th>Acciones</th>
                   </tr>
                 </thead>
                 <tfoot>
                     <tr>
-                        <th>Código Linea</th>
-                        <th>Nombre Linea</th>
+                        <th>Municipio</th>
+                        <th>Departamento</th>
                         <th>Acciones</th>
                     </tr>
                 </tfoot>
                 <tbody>
-                    <tr th:each="linea : ${lineas}">
-                        <td th:text="${linea.codlin}"></td>
-                        <td th:text="${linea.deslin}"></td>
+                    <tr th:each="municipio : ${municipios}">
+                        <td th:text="${municipio.nombreMunicipio}"></td>
+                        <td th:text="${municipio.departamento}"></td>
                         <td>
                             
-                            <a class="btn btn-primary" th:href="@{/lineas/edit/{id}(id=${linea.codlin})}">
+                            <a class="btn btn-primary" th:href="@{/municipios/edit/{id}(id=${municipio.id_municipio})}">
                                 <span class="btn-label">
                                   <i class="fas fa-edit"></i>
                                 </span>
@@ -80,7 +80,7 @@
                             <button
                               type="button"
                               class="btn btn-danger alert_demo_8"
-                              th:data-href="@{/lineas/delete/{id}(id=${linea.codlin})}"
+                              th:data-href="@{/municipios/delete/{id}(id=${municipio.id_municipio})}"
                               >
                               <span class="btn-label">
                                 <i class="fas fa-trash-alt"></i>

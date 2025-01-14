@@ -12,8 +12,8 @@ import jakarta.validation.constraints.NotNull;
 public class TipoPrenda {
     @Id
     @NotNull
-    @NotBlank
-    @Column(name = "codpre")
+    @NotBlank    
+    @Column(name = "codpre",unique = true)
     private String codpre;
 
     @NotNull

@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>Editar Colección</title>
+    <title>Editar Tipo de prenda</title>
      <!-- Fonts and icons -->
      <script src="/assets/js/plugin/webfont/webfont.min.js"></script>
      <script>
@@ -31,50 +31,50 @@
      <link rel="stylesheet" href="/assets/css/demo.css" />
 </head>
 <body>
-    <h1>Editar Colección</h1>
-    <form th:action="@{/colecciones/update/{id}(id=${coleccion.codcole})}" th:object="${coleccion}" method="post">
+    <h1>Editar Tipo de prenda</h1>
+    <form th:action="@{/tipo-prenda/update/{id}(id=${tipoPrenda.codpre})}" th:object="${tipoPrenda}" method="post">
         <div class="row">
 
             <div class="col-md-6 form-inline">
               <label
-                for="codcole"
-                class="col-md-3 col-form-label"
-                >Código de la coleccion:</label
+                for="codpre"
+                class="col-md-5 col-form-label"
+                >Código del Tipo de prenda:</label
               >
               <div class="col-md-9 p-0">
                 <input
                   type="text"
                   th:readonly="true"
                   class="form-control"
-                  id="codcole"
-                  name="codcole"
-                  th:field="*{codcole}"
+                  id="codpre"
+                  name="codpre"
+                  th:field="*{codpre}"
                   
                 />
                 
                  <!-- Mostrar error -->
-                 <div class="text-danger" th:if="${#fields.hasErrors('codcole')}" th:errors="*{codcole}"></div>
+                 <div class="text-danger" th:if="${#fields.hasErrors('codpre')}" th:errors="*{codpre}"></div>
               </div>
             </div>
   
             <div class="col-md-6 form-group form-inline">
               <label
-                for="descole"
-                class="col-md-3 col-form-label"
-                >Nombre de la coleccion:</label
+                for="despre"
+                class="col-md-5 col-form-label"
+                >Nombre del Tipo de prenda:</label
               >
               <div class="col-md-9 p-0">
                 <input
                   type="text"
                   class="form-control input-full"
-                  id="descole"
-                  name="descole"
+                  id="despre"
+                  name="despre"
                   style="text-transform: uppercase;"
-                oninput="this.value = this.value.toUpperCase();"
-                  th:field="*{descole}"
+                  oninput="this.value = this.value.toUpperCase();"
+                  th:field="*{despre}"
                 />
                  <!-- Mostrar error -->
-                 <div class="text-danger" th:if="${#fields.hasErrors('descole')}" th:errors="*{descole}"></div>
+                 <div class="text-danger" th:if="${#fields.hasErrors('despre')}" th:errors="*{despre}"></div>
               </div>
             </div>
   
