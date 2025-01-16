@@ -50,7 +50,7 @@ public class Producto {
 
     @NotNull
     @Column(name = "pcosto", nullable = false)
-    private double pcosto;
+    private int pcosto;
 
 
 
@@ -113,11 +113,11 @@ public class Producto {
         this.ttalla = ttalla;
     }
 
-    public double getPcosto() {
+    public int getPcosto() {
         return pcosto;
     }
 
-    public void setPcosto(double pcosto) {
+    public void setPcosto(int pcosto) {
         this.pcosto = pcosto;
     }
 

@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Crear Producto</title>
+     <!-- Fonts and icons -->
+     <script src="/assets/js/plugin/webfont/webfont.min.js"></script>
+     <script>
+       WebFont.load({
+         google: { families: ["Public Sans:300,400,500,600,700"] },
+         custom: {
+           families: [
+             "Font Awesome 5 Solid",
+             "Font Awesome 5 Regular",
+             "Font Awesome 5 Brands",
+             "simple-line-icons",
+           ],
+           urls: ["/assets/css/fonts.min.css"],
+         },
+         active: function () {
+           sessionStorage.fonts = true;
+         },
+       });
+     </script>
+ 
+     <!-- CSS Files -->
+     <link rel="stylesheet" href="/assets/css/bootstrap.min.css" />
+     <link rel="stylesheet" href="/assets/css/plugins.min.css" />
+     <link rel="stylesheet" href="/assets/css/kaiadmin.min.css" />
+ 
+     <!-- CSS Just for demo purpose, don't include it in your project -->
+     <link rel="stylesheet" href="/assets/css/demo.css" />
+</head>
+<body>
+    <h1>Crear Nuevo Producto</h1>
+    
+    <form th:action="@{/productos}" th:object="${producto}" method="post">
+      <div class="row">
+
+          <div class="col-md-6 form-inline">
+            <label
+              for="ref"
+              class="col-md-3 col-form-label"
+              >Referencia:</label
+            >
+            <div class="col-md-9 p-0">
+              <input
+                type="text"
+                class="form-control input-full"
+                id="ref"
+                th:field="*{ref}"
+              />
+               <!-- Mostrar error -->
+               <div class="text-danger" th:if="${#fields.hasErrors('ref')}" th:errors="*{ref}"></div>
+            </div>
+          </div>
+
+          <div class="col-md-6 form-group form-inline">
+            <label
+              for="descref"
+              class="col-md-3 col-form-label"
+              >Descripcion REF:</label
+            >
+            <div class="col-md-9 p-0">
+              <input
+                type="text"
+                class="form-control input-full"
+                id="descref"
+                style="text-transform: uppercase;"
+                oninput="this.value = this.value.toUpperCase();"
+                th:field="*{descref}"
+              />
+               <!-- Mostrar error -->
+               <div class="text-danger" th:if="${#fields.hasErrors('descref')}" th:errors="*{descref}"></div>
+            </div>
+          </div>
+          <div class="col-md-4 form-group">
+            <label for="coleccion">Coleccion</label>
+            <select class="form-select" id="coleccion" th:field="*{cole}" >
+            <option th:each="coleccion : ${colecciones}" 
+            th:value="${coleccion.key}" 
+            th:text="${coleccion.value}"></option>              
+            </select>
+          </div>
+          <div class="col-md-4 form-group">
+            <label for="marca">Marcas</label>
+            <select class="form-select" id="marca" th:field="*{marca}" >
+            <option th:each="marca : ${marcas}" 
+            th:value="${marca.key}" 
+            th:text="${marca.value}"></option>              
+            </select>
+          </div>
+          <div class="col-md-4 form-group">
+            <label for="linea">Lineas</label>
+            <select class="form-select" id="linea" th:field="*{linea}" >
+            <option th:each="linea : ${lineas}" 
+            th:value="${linea.key}" 
+            th:text="${linea.value}"></option>              
+            </select>
+          </div>
+          <div class="col-md-4 form-group">
+            <label for="tipo">Tipo de prenda</label>
+            <select class="form-select" id="tipo" th:field="*{tipopr}" >
+            <option th:each="tipo : ${tipos}" 
+            th:value="${tipo.key}" 
+            th:text="${tipo.value}"></option>              
+            </select>
+          </div>
+          <div class="col-md-4 form-group">
+            <label for="talla">Tallaje</label>
+            <select class="form-select" id="talla" th:field="*{ttalla}" onchange="updateTallas()">
+                <option th:each="talla : ${tallas}" 
+                        th:value="${talla.key}" 
+                        th:text="${talla.value[0]}"></option>              
+            </select>
+              <label>Tallaje del Producto:</label>
+              <div id="tallas-list" style="font-size: 20px;">
+                  <!-- Aquí se mostrarán las tallas dinámicamente -->
+              </div>
+        </div>
+          <div class="col-md-4 form-inline">
+            <label
+              for="pcosto"
+              class="col-md-4 col-form-label"
+              >Precio:</label
+            >
+            <div class="col-md-9 p-0">
+              <input
+                type="text"
+                class="form-control input-full"
+                id="pcosto"
+                th:field="*{pcosto}"
+              />
+            </div>
+          </div>
+
+
+
+
+
+        
+        <div class="card-action">
+            <button type="submit" class="btn btn-success">Enviar</button>
+        </div>
+      </div>
+
+    </form>
+
+<script  th:inline="javascript">
+  document.addEventListener("DOMContentLoaded", function () {
+    updateTallas(); // Llama al método cuando el DOM esté listo
+});
+  // JavaScript para manejar el evento de cambio del select
+  function updateTallas() {
+      const tallas = /*[[${tallas}]]*/ {};
+      const select = document.getElementById("talla");
+      const selectedKey = select.value; // Obtiene la clave seleccionada
+      const tallasList = document.getElementById("tallas-list");
+
+      // Limpia la lista de tallas actuales
+      tallasList.innerHTML = "";
+
+      if (tallas[selectedKey]) {
+          // Obtén el array de tallas asociadas
+    const tallasArray = tallas[selectedKey];
+
+    // Convierte el array en una cadena de texto separada por guiones
+    const tallasText = tallasArray.slice(1).join(" - "); // Comienza desde el índice 1 para omitir la descripción
+
+    // Establece el texto dentro del div
+    tallasList.textContent = tallasText;
+      }
+  }
+</script>
+</body>
+</html>
