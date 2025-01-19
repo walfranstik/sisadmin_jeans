@@ -222,6 +222,7 @@ public class ProductoController {
         Producto producto = productoService.findById(id)
                 .orElseThrow(() -> new RuntimeException("Producto no encontrado"));
         model.addAttribute("producto", producto);
+        
         model.addAttribute("colecciones", ColeccionService.findAll().stream()
         .collect(Collectors.toMap(
             Coleccion::getCodcole, // Clave: codCole

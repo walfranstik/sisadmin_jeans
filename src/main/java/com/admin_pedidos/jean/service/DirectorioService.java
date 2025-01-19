@@ -23,6 +23,14 @@ public class DirectorioService {
         return directorioRepository.findById(id);
     }
 
+    public boolean existsByNitdir(String nitdir) {
+        return directorioRepository.existsByNitdir(nitdir);
+    }
+
+    public List<Directorio> findByVddor(String vddor) {
+        return directorioRepository.findByVddor(vddor);
+    }
+
     public Directorio save(Directorio directorio) {
         return directorioRepository.save(directorio);
     }

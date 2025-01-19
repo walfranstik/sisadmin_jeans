@@ -16,8 +16,9 @@ public class Directorio {
     @Column(name = "nitdir")
     private String nitdir;
 
-    @Column(name = "dcnitdir", nullable = false)
-    private char dcnitdir;
+
+    @Column(name = "dcnitdir")
+    private char dcnitdir = '0';
 
     @NotNull
     @NotBlank
@@ -78,31 +79,15 @@ public class Directorio {
     @NotBlank
     @Column(name = "telcontacdir", nullable = false)
     private String telcontacdir;
-
-    @NotNull
-    @NotBlank
-    @Column(name = "provee", nullable = false)
-    private String provee;
-
-    @NotNull
-    @NotBlank
-    @Column(name = "clte", nullable = false)
+    
+    @Column(name = "clte")
     private String clte;
-
-    @NotNull
-    @NotBlank
-    @Column(name = "vddor", nullable = false)
+    
+    @Column(name = "vddor")
     private String vddor;
-
-    @NotNull
-    @NotBlank
-    @Column(name = "empl", nullable = false)
+    
+    @Column(name = "empl")
     private String empl;
-
-    @NotNull
-    @NotBlank
-    @Column(name = "tercero", nullable = false)
-    private String tercero;
 
     @NotNull
     @NotBlank
@@ -226,13 +211,7 @@ public class Directorio {
         this.telcontacdir = telcontacdir;
     }
 
-    public String getProvee() {
-        return provee;
-    }
-
-    public void setProvee(String provee) {
-        this.provee = provee;
-    }
+  
 
     public String getClte() {
         return clte;
@@ -257,16 +236,6 @@ public class Directorio {
     public void setEmpl(String empl) {
         this.empl = empl;
     }
-
-    public String getTercero() {
-        return tercero;
-    }
-
-    public void setTercero(String tercero) {
-        this.tercero = tercero;
-    }
-
-    
 
     public String getNomvddor() {
         return nomvddor;
