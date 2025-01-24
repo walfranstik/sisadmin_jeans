@@ -10,9 +10,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import java.util.Comparator;
 import java.util.HashMap;
-import java.util.TreeMap;
 import java.util.stream.Collectors;
 
 import com.admin_pedidos.jean.service.ProductoService;
@@ -99,13 +97,8 @@ public class ProductoController {
     @GetMapping("/new")
     public String showCreateForm(Model model) {
         model.addAttribute("producto", new Producto());
-        model.addAttribute("colecciones", ColeccionService.findAll().stream()
-        .collect(Collectors.toMap(
-            Coleccion::getCodcole, // Clave: codCole
-            Coleccion::getDescole, // Valor: desCole
-            (existing, replacement) -> existing, // Resolver duplicados
-            () -> new TreeMap<>(Comparator.reverseOrder())  
-      )));
+        model.addAttribute("colecciones", ColeccionService.findAll());
+        
 
         model.addAttribute("marcas", MarcaService.findAll().stream()
             .collect(Collectors.toMap(
@@ -159,13 +152,9 @@ public class ProductoController {
     public String saveProducto(@Valid @ModelAttribute Producto producto, BindingResult result, Model model) {
         if (result.hasErrors()) {
             model.addAttribute("producto", producto);
-            model.addAttribute("colecciones", ColeccionService.findAll().stream()
-        .collect(Collectors.toMap(
-            Coleccion::getCodcole, // Clave: codCole
-            Coleccion::getDescole, // Valor: desCole
-            (existing, replacement) -> existing, // Resolver duplicados
-            () -> new TreeMap<>(Comparator.reverseOrder())  
-      )));
+            model.addAttribute("colecciones", ColeccionService.findAll());
+
+
 
         model.addAttribute("marcas", MarcaService.findAll().stream()
             .collect(Collectors.toMap(
@@ -223,13 +212,8 @@ public class ProductoController {
                 .orElseThrow(() -> new RuntimeException("Producto no encontrado"));
         model.addAttribute("producto", producto);
         
-        model.addAttribute("colecciones", ColeccionService.findAll().stream()
-        .collect(Collectors.toMap(
-            Coleccion::getCodcole, // Clave: codCole
-            Coleccion::getDescole, // Valor: desCole
-            (existing, replacement) -> existing, // Resolver duplicados
-            () -> new TreeMap<>(Comparator.reverseOrder())  
-      )));
+        model.addAttribute("colecciones", ColeccionService.findAll());
+
 
         model.addAttribute("marcas", MarcaService.findAll().stream()
             .collect(Collectors.toMap(
@@ -283,13 +267,8 @@ public class ProductoController {
         if (result.hasErrors()) {
             producto.setId_pdto(id);
             model.addAttribute("producto", producto);
-            model.addAttribute("colecciones", ColeccionService.findAll().stream()
-        .collect(Collectors.toMap(
-            Coleccion::getCodcole, // Clave: codCole
-            Coleccion::getDescole, // Valor: desCole
-            (existing, replacement) -> existing, // Resolver duplicados
-            () -> new TreeMap<>(Comparator.reverseOrder())  
-      )));
+            model.addAttribute("colecciones", ColeccionService.findAll());
+
 
         model.addAttribute("marcas", MarcaService.findAll().stream()
             .collect(Collectors.toMap(

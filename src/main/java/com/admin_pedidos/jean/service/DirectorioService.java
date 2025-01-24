@@ -31,6 +31,10 @@ public class DirectorioService {
         return directorioRepository.findByVddor(vddor);
     }
 
+    public List<Directorio> findByClte(String clte) {
+        return directorioRepository.findByClte(clte);
+    }
+
     public Directorio save(Directorio directorio) {
         return directorioRepository.save(directorio);
     }

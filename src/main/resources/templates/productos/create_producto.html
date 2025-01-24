@@ -77,10 +77,11 @@
             <label for="coleccion">Coleccion</label>
             <select class="form-select" id="coleccion" th:field="*{cole}" >
             <option th:each="coleccion : ${colecciones}" 
-            th:value="${coleccion.key}" 
-            th:text="${coleccion.value}"></option>              
+            th:value="${coleccion.codcole}" 
+            th:text="${coleccion.codcole}"></option>              
             </select>
           </div>
+          
           <div class="col-md-4 form-group">
             <label for="marca">Marcas</label>
             <select class="form-select" id="marca" th:field="*{marca}" >

@@ -1,0 +1,512 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Crear Pedido</title>
+     <!-- Fonts and icons -->
+     <script src="/assets/js/plugin/webfont/webfont.min.js"></script>
+     <script>
+       WebFont.load({
+         google: { families: ["Public Sans:300,400,500,600,700"] },
+         custom: {
+           families: [
+             "Font Awesome 5 Solid",
+             "Font Awesome 5 Regular",
+             "Font Awesome 5 Brands",
+             "simple-line-icons",
+           ],
+           urls: ["/assets/css/fonts.min.css"],
+         },
+         active: function () {
+           sessionStorage.fonts = true;
+         },
+       });
+     </script>
+ 
+     <!-- CSS Files -->
+     <link rel="stylesheet" href="/assets/css/bootstrap.min.css" />
+     <link rel="stylesheet" href="/assets/css/plugins.min.css" />
+     <link rel="stylesheet" href="/assets/css/kaiadmin.min.css" />
+ 
+     <!-- CSS Just for demo purpose, don't include it in your project -->
+     <link rel="stylesheet" href="/assets/css/demo.css" />
+</head>
+<body style="background-color:  #ecf0f1 ;">
+
+    <h1>Crear Nuevo Pedido</h1>
+    
+    <form th:action="@{/pedidos}" th:object="${pedido}" method="post">
+      <div class="row">
+
+        <div class="col-md-2 form-inline">
+          <label for="fechaped" class="col-form-label">Fecha del pedido:</label>
+          <input
+            type="text"
+            class="form-control input-full"
+            id="fechaped"
+            th:field="*{fechaped}"
+            readonly="readonly"
+          />
+      
+      </div>
+      
+
+          <div class="col-md-4 form-group">
+            <label for="vendedor">Vendedor:</label>
+            <select class="form-select" id="vendedor" th:field="*{vddor}">
+            <option th:each="vendedor : ${vendedores}" 
+            th:value="${vendedor.nomdir}" 
+            th:text="${vendedor.nomdir}"></option>              
+            </select>
+          </div>
+          <div class="col-md-3 form-group">
+            <label for="coleccion">Coleccion</label>
+            <select class="form-select" id="coleccion" th:field="*{col}" onchange="updateSelectReferencia()">
+            <option th:each="coleccion : ${colecciones}" 
+            th:value="${coleccion.codcole}" 
+            th:text="${coleccion.codcole}"></option>              
+            </select>
+          </div>
+          <div class="col-md-2 form-inline">
+            <label
+              for="numped"
+              class="col-form-label"
+              >Numero del pedido:</label
+            >
+              <input
+                type="number"   oninput="this.value = this.value.replace(/[^0-9]/g, '');"
+                class="form-control input-full"
+                id="numped"
+                th:field="*{numped}"
+              />
+               <!-- Mostrar error -->
+               <div class="text-danger" th:if="${#fields.hasErrors('numped')}" th:errors="*{numped}"></div>
+            </div>
+        </div>
+
+      <div class="row">
+        <div class="offset-md-2 col-md-8 form-group">
+          <label for="cliente">Cliente:</label>
+          <select class="form-select" id="cliente" th:field="*{clte}">
+          <option th:each="cliente : ${clientes}" 
+          th:value="${cliente.nomdir}" 
+          th:text="${cliente.nomdir}"></option>              
+          </select>
+        </div>
+      </div>
+
+      <div class="container" style="background-color:   #d6eaf8  ;">
+        <div class="row">
+          <div class="offset-md-1 col-md-3 form-group">
+            <label for="referencia">Referencia:</label>
+            <select class="form-select" id="referencia" th:field="*{ref}" onchange="updateReferencia()">
+                    
+            </select>
+          </div>
+          <div class="col-md-7 d-flex justify-content-center align-items-center">
+            <h3 id="ref_nombre" ></h3>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-1 form-inline d-flex flex-column align-items-center">
+            <label for="t1" class="col-form-label">6 / 28</label>
+            <div class="p-0">
+              <input type="number"  oninput="this.value = this.value.replace(/[^0-9]/g, '');" class="form-control input-full cant-tall" id="t1" th:field="*{t1}" min="0" value="0" onchange="updateCantidad()" />
+            </div>
+          </div>
+          <div class="col-md-1 form-inline d-flex flex-column align-items-center">
+            <label for="t2" class="col-form-label">8 / 30</label>
+            <div class="p-0">
+              <input type="number"  oninput="this.value = this.value.replace(/[^0-9]/g, '');" class="form-control input-full cant-tall" id="t2" th:field="*{t2}" min="0" value="0" onchange="updateCantidad()"/>
+            </div>
+          </div>
+          <div class="col-md-1 form-inline d-flex flex-column align-items-center">
+            <label for="t3" class="col-form-label">10 / 32</label>
+            <div class="p-0">
+              <input type="number"  oninput="this.value = this.value.replace(/[^0-9]/g, '');" class="form-control input-full cant-tall" id="t3" th:field="*{t3}" min="0" value="0" onchange="updateCantidad()"/>
+            </div>
+          </div>
+          <div class="col-md-1 form-inline d-flex flex-column align-items-center">
+            <label for="t4" class="col-form-label">12 / 34</label>
+            <div class="p-0">
+              <input type="number"  oninput="this.value = this.value.replace(/[^0-9]/g, '');" class="form-control input-full cant-tall" id="t4" th:field="*{t4}" min="0" value="0" onchange="updateCantidad()"/>
+            </div>
+          </div>
+            <div class="col-md-1 form-inline d-flex flex-column align-items-center">
+            <label for="t5" class="col-form-label">14 / 36</label>
+            <div class="p-0">
+              <input type="number"  oninput="this.value = this.value.replace(/[^0-9]/g, '');" class="form-control input-full cant-tall" id="t5" th:field="*{t5}" min="0" value="0" onchange="updateCantidad()"/>
+            </div>
+          </div>
+            <div class="col-md-1 form-inline d-flex flex-column align-items-center">
+            <label for="t6" class="col-form-label">16 / 38</label>
+            <div class="p-0">
+              <input type="number"  oninput="this.value = this.value.replace(/[^0-9]/g, '');" class="form-control input-full cant-tall" id="t6" th:field="*{t6}" min="0" value="0" onchange="updateCantidad()"/>
+            </div>
+          </div>
+            <div class="col-md-1 form-inline d-flex flex-column align-items-center">
+            <label for="t7" class="col-form-label">18 / 40</label>
+            <div class="p-0">
+              <input type="number"  oninput="this.value = this.value.replace(/[^0-9]/g, '');" class="form-control input-full cant-tall" id="t7" th:field="*{t7}" min="0" value="0" onchange="updateCantidad()"/>
+            </div>
+          </div>
+            <div class="col-md-1 form-inline d-flex flex-column align-items-center">
+            <label for="t8" class="col-form-label">20 / 42</label>
+            <div class="p-0">
+              <input type="number"  oninput="this.value = this.value.replace(/[^0-9]/g, '');" class="form-control input-full cant-tall" id="t8" th:field="*{t8}" min="0" value="0" onchange="updateCantidad()"/>
+            </div>
+          </div>
+            <div class="col-md-1 form-inline d-flex flex-column align-items-center">
+            <label for="t9" class="col-form-label">22 / 44</label>
+            <div class="p-0">
+              <input type="number"  oninput="this.value = this.value.replace(/[^0-9]/g, '');" class="form-control input-full cant-tall" id="t9" th:field="*{t9}" min="0" value="0" onchange="updateCantidad()"/>
+            </div>
+          </div>
+            <div class="col-md-1 form-inline d-flex flex-column align-items-center">
+            <label for="t10" class="col-form-label">24 / 46</label>
+            <div class="p-0">
+              <input type="number"  oninput="this.value = this.value.replace(/[^0-9]/g, '');" class="form-control input-full cant-tall" id="t10" th:field="*{t10}" min="0" value="0" onchange="updateCantidad()"/>
+            </div>
+          </div>
+        </div>
+
+        <div class="row" >
+          <div class="col-md-4 form-inline">
+            <label
+              for="prendref"
+              class="col-form-label"
+              ># Total de Prendas:</label
+            >
+            <div class=" p-0">
+              <input
+                type="number"
+                class="form-control input-full"
+                id="prendref"
+                th:readonly="true"
+                th:field="*{prendref}"
+                min="0"
+                value="0"
+              />
+                </div>
+          </div>
+          
+          <div class="col-md-4 form-inline">
+            <label
+              for="valor_unitario"
+              class="col-form-label"
+              >Valor Unit $:</label
+            >
+            <div class=" p-0">
+              <input
+                type="number"  oninput="this.value = this.value.replace(/[^0-9]/g, '');"
+                class="form-control input-full"
+                id="valor_unitario"
+                name="valor_unitario" 
+              />
+            </div>
+          </div>
+          <div class="col-md-4 form-inline">
+            <label for="obsref" class="col-form-label">Observación Referencia:</label>
+            <input
+              type="text"
+              class="form-control input-full"
+              id="obsref"
+              style="text-transform: uppercase;"
+                oninput="this.value = this.value.toUpperCase();"
+              th:field="*{obsref}"
+            />
+        </div>
+        </div>
+        <div class="row" style="margin-top: 10px;">
+
+          
+        
+
+          <div class="offset-md-3 col-md-6">
+            <button type="button" class="btn btn-primary" onclick="agregarReferencia()" style="width: 100%; ">
+              <span class="btn-label">
+                <i class="fas fa-plus-circle"></i>
+              </span>
+              Agregar referencia
+            </button>
+          </div>
+        </div>
+        <div class="row" style="margin-top: 10px;">
+          <div class="col-md-12">
+            <h3>Referencias agregadas</h3>
+            <div style="font-size: 18px; font-weight: bold;" class="text-danger" th:if="${#fields.hasErrors('ref')}" th:errors="*{ref}"></div>
+
+            <div class="table-responsive"> 
+            <table class="table table-head-bg-primary mt-4">
+              <thead>
+                <tr> 
+                  <th scope="col">Referencia</th>
+                  <th scope="col">6/28</th>
+                  <th scope="col">8/30</th>
+                  <th scope="col">10/32</th>
+                  <th scope="col">12/34</th>
+                  <th scope="col">14/36</th>
+                  <th scope="col">16/38</th>
+                  <th scope="col">18/40</th>
+                  <th scope="col">20/42</th>
+                  <th scope="col">22/44</th>
+                  <th scope="col">24/46</th>
+                  <th scope="col">Cantidad</th>
+                  <th scope="col">Precio</th>
+                  <th scope="col">Obs</th>
+                  <th scope="col">Acciones</th>
+                </tr>
+              </thead>
+              <tbody id="tablaReferencias">
+              </tbody>
+            </table>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <input type="hidden" name="referencias" id="referenciasInput">
+
+      <div class="row">
+        <div class="col-md-3 form-inline">
+          <label
+            for="tprendas"
+            class="col-form-label"
+            >Total Prendas:</label>
+            <input
+              type="number"
+              class="form-control input-full"
+              id="tprendas"
+              th:field="*{tprendas}"
+              style="font-size: 18px;" 
+              readonly
+            />
+             <!-- Mostrar error -->
+             <div class="text-danger" th:if="${#fields.hasErrors('tprendas')}" th:errors="*{tprendas}"></div>
+        </div>
+            <div class="col-md-5 form-inline">
+              <label
+                for="total"
+                class="col-form-label"
+                >TOTAL:</label>
+                <input
+                  type="number"
+                  class="form-control input-full"
+                  id="total"
+                  th:field="*{total}"
+                  style="font-size: 18px;" 
+                  readonly
+                />
+                 <!-- Mostrar error -->
+                 <div class="text-danger" th:if="${#fields.hasErrors('total')}" th:errors="*{total}"></div>
+            </div>
+            <div class="col-md-4 form-inline">
+              <label for="obsgen" class="col-form-label">Observaciones Generales:</label>
+              <input
+                type="text"
+                class="form-control input-full"
+                id="obsgen"
+                style="text-transform: uppercase;"
+                oninput="this.value = this.value.toUpperCase();"
+                th:field="*{obsgen}"
+              />
+          </div>
+      </div>
+
+
+      <div class="row">
+        <div class=" offset-md-3 col-md-6">
+          <div class="card-action" >
+            <button type="submit" class="btn btn-success" style="width: 100%; height: 90px;">GUARDAR PEDIDO</button>
+        </div>
+        </div>
+      </div>
+
+      
+
+        
+
+        
+    
+
+    </form>
+
+
+   
+    <script th:inline="javascript">
+    let referencias = JSON.parse(/*[[${referenciasCompradas}]]*/ '[]');
+    
+      function agregarReferencia() {
+          // Obtener valores del formulario
+          const referencia = document.getElementById("referencia").value;
+          const cantidad = document.getElementById("prendref").value;
+          const precio = document.getElementById("valor_unitario").value;
+          const t1 = document.getElementById("t1").value;
+          const t2 = document.getElementById("t2").value;
+          const t3 = document.getElementById("t3").value;
+          const t4 = document.getElementById("t4").value;
+          const t5 = document.getElementById("t5").value;
+          const t6 = document.getElementById("t6").value;
+          const t7 = document.getElementById("t7").value;
+          const t8 = document.getElementById("t8").value;
+          const t9 = document.getElementById("t9").value;
+          const t10 = document.getElementById("t10").value;
+          const obs = document.getElementById("obsref").value;
+          const descref = document.getElementById("ref_nombre").textContent;
+          
+
+
+          // Validar datos
+          if (cantidad > 0 && precio > 0) {
+              // Agregar a la lista
+              referencias.push({ referencia,descref,t1,t2,t3,t4,t5,t6,t7,t8,t9,t10, cantidad,obs, precio });
+
+              // Actualizar la tabla
+              actualizarTabla();
+
+              // Limpiar el formulario
+              document.getElementById("t1").value = 0;
+              document.getElementById("t2").value = 0;
+              document.getElementById("t3").value = 0;
+              document.getElementById("t4").value = 0;
+              document.getElementById("t5").value = 0;
+              document.getElementById("t6").value = 0;
+              document.getElementById("t7").value = 0;
+              document.getElementById("t8").value = 0;
+              document.getElementById("t9").value = 0;
+              document.getElementById("t10").value = 0;
+              document.getElementById("prendref").value = 0;
+              document.getElementById("obsref").value = "";
+          } else {
+              alert("Por favor, completa todos los campos correctamente, la Cantidad y Precio deben ser mayores de 0");
+          }
+      }
+
+      function actualizarTabla() {
+          const tabla = document.getElementById("tablaReferencias");
+          tabla.innerHTML = "";
+          document.getElementById("total").value = "";
+          document.getElementById("tprendas").value = "";
+          total = 0;
+          tprendas = 0;
+          referencias.forEach((item, index) => {
+              const row = `<tr>
+                              <td>${item.referencia}</td>
+                              <td>${item.t1}</td>
+                              <td>${item.t2}</td>
+                              <td>${item.t3}</td>
+                              <td>${item.t4}</td>
+                              <td>${item.t5}</td>
+                              <td>${item.t6}</td>
+                              <td>${item.t7}</td>
+                              <td>${item.t8}</td>
+                              <td>${item.t9}</td>
+                              <td>${item.t10}</td>
+                              <td>${item.cantidad}</td>
+                              <td>${item.precio}</td>
+                              <td>${item.obs}</td>
+                              <td>
+                                  <button onclick="eliminarReferencia(${index})">Eliminar</button>
+                              </td>
+                           </tr>`;
+                            total += parseInt(item.cantidad) * parseInt(item.precio);
+                            tprendas += parseInt(item.cantidad);
+              
+              tabla.innerHTML += row;
+          });
+          document.getElementById("total").value = total;
+          document.getElementById("tprendas").value = tprendas;
+          document.getElementById("referenciasInput").value = JSON.stringify(referencias);
+          
+      }
+
+      function eliminarReferencia(index) {
+          referencias.splice(index, 1);
+          actualizarTabla();
+      }
+  </script>
+    
+    <!-- Scripts -->
+    <script  th:inline="javascript">
+      document.addEventListener("DOMContentLoaded", function () {
+        updateReferencia(); // Llama al método cuando el DOM esté listo
+        updateSelectReferencia(); // Llama al método cuando el DOM esté listo
+        actualizarTabla();
+        updateCantidad();
+        const inputs = document.querySelectorAll('input');
+
+          // Itera sobre cada input y agrega un event listener
+          inputs.forEach(input => {
+              input.addEventListener('keydown', (event) => {
+                  // Si se presiona Enter
+                  if (event.key === 'Enter') {
+                      // Evita el comportamiento por defecto (enviar el formulario)
+                      event.preventDefault();
+                  }
+              });
+          });
+    });
+    function updateCantidad() {
+    const cantTall = document.getElementsByClassName("cant-tall");
+    const cantidad = document.getElementById("prendref"); // Obtiene el input del total
+
+    let cantidadTotal = 0;
+
+    // Recorre todos los inputs de cantidad y suma los valores
+    for (let i = 0; i < cantTall.length; i++) { // Cambiar de 1 a 0 y usar cantTall.length
+        const input = cantTall[i];
+        if (input.value) { // Verificar si el input tiene un valor
+            cantidadTotal += parseInt(input.value, 10); // Asegurar que sea un entero
+        }
+    }
+
+    // Actualiza el valor del input de cantidad total
+    cantidad.value = cantidadTotal;
+}
+
+
+function updateSelectReferencia() {
+          const productos = /*[[${productos}]]*/ {};
+          const select = document.getElementById("coleccion");
+          const selectedKey = select.value; // Obtiene la clave seleccionada
+          const referenciasSelect = document.getElementById("referencia");          
+          // Limpia la lista de municipios actuales
+          referenciasSelect.innerHTML = "";
+            productos.forEach(function (producto) {
+                  if (producto.cole === selectedKey) {
+                    const option = document.createElement("option");
+                    option.value = producto.ref;
+                    option.textContent = producto.ref;
+                    referenciasSelect.appendChild(option);
+
+                  }
+            });
+            updateReferencia();
+    
+          
+      }
+      // JavaScript para manejar el evento de cambio del select
+      function updateReferencia() {
+          const productos = /*[[${productos}]]*/ {};
+          const select = document.getElementById("referencia");
+          const selectedKey = select.value; // Obtiene la clave seleccionada
+          const referenciaH3 = document.getElementById("ref_nombre");          
+          // Limpia la lista de municipios actuales
+          referenciaH3.innerHTML = "";
+
+
+          productos.forEach(function (producto) {
+            if (producto.ref === selectedKey) {
+              referenciaH3.innerHTML = producto.descref;
+              // Actualiza el valor del input de valor unitario
+              document.getElementById("valor_unitario").value = producto.pcosto;
+            }
+      });
+
+    
+          }
+      
+    </script>
+
+</body>
+</html>
