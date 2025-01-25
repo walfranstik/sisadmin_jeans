@@ -31,6 +31,9 @@
      <link rel="stylesheet" href="/assets/css/demo.css" />
 </head>
 <body>
+  <div class="wrapper">
+    <div th:replace="~{ /fragments/sidebar :: sidebar}" ></div>
+		  <div class="main-panel">
     
     
     <div class="col-md-12">
@@ -95,7 +98,7 @@
             </div>
           </div>
         </div>
-      </div>
+      </div></div></div>
       <!--   Core JS Files   -->
     <script src="/assets/js/core/jquery-3.7.1.min.js"></script>
     <script src="/assets/js/core/popper.min.js"></script>

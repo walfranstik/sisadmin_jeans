@@ -31,6 +31,9 @@
      <link rel="stylesheet" href="/assets/css/demo.css" />
 </head>
 <body>
+  <div class="wrapper">
+    <div th:replace="~{ /fragments/sidebar :: sidebar}" ></div>
+		  <div class="main-panel">
     
     
     <div class="col-md-12">
@@ -59,7 +62,7 @@
               </form>
 
               <table
-                id="basic-datatables"
+               
                 class="display table table-striped table-hover"
               >
                 <thead>
@@ -208,7 +211,7 @@
             </div>
           </div>
         </div>
-      </div>
+      </div></div></div>
       <!--   Core JS Files   -->
     <script src="/assets/js/core/jquery-3.7.1.min.js"></script>
     <script src="/assets/js/core/popper.min.js"></script>
@@ -281,69 +284,6 @@
           SweetAlert2Demo.init();
         });
     </script>
-<script>
-  $(document).ready(function () {
-    // Configuración de DataTables
-    $("#basic-datatables").DataTable({
-      paging: false, // Desactiva la paginación interna de DataTables
-      searching: false, // Permite búsqueda en la tabla
-      ordering: true, // Habilita el ordenamiento
-      info: false, // Desactiva el conteo de registros de DataTables
-    });
-
-    // Filtro avanzado por columnas
-    $("#multi-filter-select").DataTable({
-      paging: false,
-      searching: false,
-      pageLength: 5,
-      initComplete: function () {
-        this.api()
-          .columns()
-          .every(function () {
-            var column = this;
-            var select = $(
-              '<select class="form-select"><option value=""></option></select>'
-            )
-              .appendTo($(column.footer()).empty())
-              .on("change", function () {
-                var val = $.fn.dataTable.util.escapeRegex($(this).val());
-
-                column
-                  .search(val ? "^" + val + "$" : "", true, false)
-                  .draw();
-              });
-
-            column
-              .data()
-              .unique()
-              .sort()
-              .each(function (d, j) {
-                select.append(
-                  '<option value="' + d + '">' + d + "</option>"
-                );
-              });
-          });
-      },
-    });
-
-    // Agregar filas dinámicamente
-    var action =
-      '<td> <div class="form-button-action"> <button type="button" data-bs-toggle="tooltip" title="" class="btn btn-link btn-primary btn-lg" data-original-title="Edit Task"> <i class="fa fa-edit"></i> </button> <button type="button" data-bs-toggle="tooltip" title="" class="btn btn-link btn-danger" data-original-title="Remove"> <i class="fa fa-times"></i> </button> </div> </td>';
-
-    $("#addRowButton").click(function () {
-      $("#add-row")
-        .dataTable()
-        .fnAddData([
-          $("#addName").val(),
-          $("#addPosition").val(),
-          $("#addOffice").val(),
-          action,
-        ]);
-      $("#addRowModal").modal("hide");
-    });
-  });
-</script>
-
 
 </body>
 </html>

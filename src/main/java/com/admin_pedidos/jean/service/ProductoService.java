@@ -1,5 +1,8 @@
 package com.admin_pedidos.jean.service;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -18,6 +21,10 @@ public class ProductoService {
 
     public List<Producto> findAll() {
         return productoRepository.findAll();
+    }
+    public Page<Producto> searchProductos(String keyword, int page, int size) {
+        Pageable pageable = PageRequest.of(page, size);
+        return productoRepository.search(keyword, pageable);
     }
 
     public Optional<Producto> findById(int id) {

@@ -1,6 +1,7 @@
 package com.admin_pedidos.jean.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -9,6 +10,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.HashMap;
 import java.util.stream.Collectors;
@@ -48,8 +50,19 @@ public class ProductoController {
 
     // Mostrar todos los productos
     @GetMapping
-    public String listProductos(Model model) {
-        model.addAttribute("productos", productoService.findAll());
+    public String listProductos(
+        @RequestParam(defaultValue = "") String keyword,
+        @RequestParam(defaultValue = "0") int page,
+        @RequestParam(defaultValue = "10") int size,
+        Model model) {
+             
+        Page<Producto> pedidosPage = productoService.searchProductos(keyword, page, size);
+
+        model.addAttribute("keyword", (keyword.isEmpty()? "" : keyword));
+        model.addAttribute("productos", pedidosPage.getContent());
+        model.addAttribute("currentPage", page);
+        model.addAttribute("totalPages", pedidosPage.getTotalPages());
+
         model.addAttribute("colecciones", ColeccionService.findAll().stream()
         .collect(Collectors.toMap(
             Coleccion::getCodcole, // Clave: codCole

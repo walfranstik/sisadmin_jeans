@@ -62,7 +62,6 @@ public class PedidoController {
         model.addAttribute("pedidos", pedidosPage.getContent());
         model.addAttribute("currentPage", page);
         model.addAttribute("totalPages", pedidosPage.getTotalPages());
-        model.addAttribute("keyword", keyword);
 
         return "pedidos/list_pedidos";
     }

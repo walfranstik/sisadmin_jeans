@@ -1,0 +1,136 @@
+<html xmlns:th="http://www.thymeleaf.org">
+<!-- Sidebar -->
+<div class="sidebar" data-background-color="dark" th:fragment="sidebar">
+    <div class="sidebar-logo">
+        <!-- Logo Header -->
+        <div class="logo-header" data-background-color="dark">
+
+            <a  class="logo">
+                <img src="/img/logo.png" alt="navbar brand" class="navbar-brand" width="180" height="90px" style="padding-top: 5px;">
+            </a>
+            <div class="nav-toggle">
+                <button class="btn btn-toggle toggle-sidebar">
+                    <i class="gg-menu-right"></i>
+                </button>
+                <button class="btn btn-toggle sidenav-toggler">
+                    <i class="gg-menu-left"></i>
+                </button>
+            </div>
+            <button class="topbar-toggler more">
+                <i class="gg-more-vertical-alt"></i>
+            </button>
+        </div>
+        <!-- End Logo Header -->	
+    </div>	
+    <div class="sidebar-wrapper scrollbar scrollbar-inner">
+        <div class="sidebar-content">
+            <ul class="nav nav-secondary">
+                
+                <li class="nav-section">
+                    <span class="sidebar-mini-icon">
+                        <i class="fa fa-ellipsis-h"></i>
+                    </span>
+                    <h4 class="text-section">ITEMS</h4>
+                </li>
+              
+               
+                <li class="nav-item">
+                    <a data-bs-toggle="collapse" href="#productos">
+                        <i class="fab fa-product-hunt"></i>
+                        <p>Productos</p>
+                        <span class="caret"></span>
+                    </a>
+                    <div class="collapse" id="productos">
+                        <ul class="nav nav-collapse">
+                            <li class="nav-item">
+                                <a href="/productos">
+                                    <i class="fas fa-box-open"></i>
+                                    <p>Productos</p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="/colecciones">
+                                    <i class="fas fa-layer-group"></i>
+                                    <p>Colecciones</p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="/tipo-prenda">
+                                    <i class="fas fa-tshirt"></i>
+                                    <p>Tipo de Prenda</p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="/tallajes">
+                                    <i class="fas fa-ruler-combined"></i>
+                                    <p>Tallajes</p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="/marcas">
+                                    <i class="fas fa-tags"></i>
+                                    <p>Marcas</p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="/lineas">
+                                    <i class="fas fa-list-alt"></i>
+                                    <p>Líneas</p>
+                                </a>
+                            </li>
+                            
+                        </ul>
+                    </div>
+                </li>
+                <li class="nav-item">
+                    <a data-bs-toggle="collapse" href="#directorio">
+                        <i class="fas fa-clipboard-list"></i>
+                        <p>Directorio</p>
+                        <span class="caret"></span>
+                    </a>
+                    <div class="collapse" id="directorio">
+                        <ul class="nav nav-collapse">
+                           
+                            <li class="nav-item">
+                                <a href="/directorios">
+                                    <i class="fas fa-address-book"></i>
+                                    <p>Directorios</p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="/municipios">
+                                    <i class="fas fa-map-marker-alt"></i>
+                                    <p>Municipios</p>
+                                </a>
+                            </li>
+                            
+                            
+                        </ul>
+                    </div>
+                </li>
+                <li class="nav-item">
+                    <a data-bs-toggle="collapse" href="#pedidos">
+                        <i class="fas fa-barcode"></i>
+                        <p>Pedidos</p>
+                        <span class="caret"></span>
+                    </a>
+                    <div class="collapse" id="pedidos">
+                        <ul class="nav nav-collapse">
+                            
+                            <li class="nav-item">
+                                <a href="/pedidos">
+                                    <i class="fas fa-shopping-cart"></i>
+                                    <p>Pedidos</p>
+                                </a>
+                            </li>
+                           
+                        </ul>
+                    </div>
+                </li>
+            
+            </ul>
+        </div>
+    </div>
+</div>
+<!-- End Sidebar -->
+</html>
