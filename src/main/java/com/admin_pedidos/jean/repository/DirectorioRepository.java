@@ -13,5 +13,7 @@ public interface DirectorioRepository extends JpaRepository<Directorio, String> 
     
     List<Directorio> findByVddor(String vddor);
     List<Directorio> findByClte(String clte);
+    List<Directorio> findByNomdir(String nomdir);
+
 
 }

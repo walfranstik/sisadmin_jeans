@@ -1,7 +1,8 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>Editar Directorio</title>
+    <title>Rotulo</title>
+   
      <!-- Fonts and icons -->
      <script src="/assets/js/plugin/webfont/webfont.min.js"></script>
      <script>
@@ -31,375 +32,134 @@
      <link rel="stylesheet" href="/assets/css/demo.css" />
 </head>
 <body>
-    <h1>Editar Directorio</h1>
-    <form th:action="@{/directorios/update/{id}(id=${directorio.nitdir})}" th:object="${directorio}" method="post">
-
-  
-          
-      <div class="row">
-        <div class="offset-md-4 col-md-3 form-inline">
-          
-          <label
-            for="nitdir"
-            class="col-md-12 col-form-label"
-            >Documento:</label
-          >
-          <div class="col-md-12 p-0">
-            <input
-              type="text"
-              class="form-control input-full"
-              th:readonly="true"
-              id="nitdir"
-              name="nitdir"
-              th:field="*{nitdir}"
-            />
-             <!-- Mostrar error -->
-             <div class="text-danger" th:if="${#fields.hasErrors('nitdir')}" th:errors="*{nitdir}"></div>
-          </div>
-        </div>
-
-        <div class="col-md-1 form-group form-inline">
-          <label
-            for="dcnitdir"
-            class="col-md-12 col-form-label"
-            >dc:</label
-          >
-          <div class="col-md-12 p-0">
-            <input
-              type="text"
-              class="form-control input-full"
-              id="dcnitdir"
-              maxlength="1"
-              value="0"
-              th:field="*{dcnitdir}"
-            />
-             <!-- Mostrar error -->
-             <div class="text-danger" th:if="${#fields.hasErrors('dcnitdir')}" th:errors="*{dcnitdir}"></div>
-          </div>
-        </div>
-    </div>
-
-    <div class="row">
-        <div class="offset-md-1 col-md-5 form-group form-inline">
-          <label
-            for="nomdir"
-            class="col-md-12 col-form-label"
-            >Nombre:</label
-          >
-          <div class="col-md-12 p-0">
-            <input
-              type="text"
-              class="form-control input-full"
-              id="nomdir"
-              name="nomdir"
-              style="text-transform: uppercase;"
-              oninput="this.value = this.value.toUpperCase();"
-              th:field="*{nomdir}"
-            />
-             <!-- Mostrar error -->
-             <div class="text-danger" th:if="${#fields.hasErrors('nomdir')}" th:errors="*{nomdir}"></div>
-          </div>
-        </div>
-        <div class="col-md-4 form-group form-inline">
-          <label
-            for="diredir"
-            class="col-md-12 col-form-label"
-            >Dirección:</label
-          >
-          <div class="col-md-12 p-0">
-            <input
-              type="text"
-              class="form-control input-full"
-              id="diredir"
-              name="diredir"
-              style="text-transform: uppercase;"
-              oninput="this.value = this.value.toUpperCase();"
-              th:field="*{diredir}"
-            />
-             <!-- Mostrar error -->
-             <div class="text-danger" th:if="${#fields.hasErrors('diredir')}" th:errors="*{diredir}"></div>
-          </div>
-        </div>
-      </div>
-      <div class="row">
-        <div class="offset-md-1 col-md-5 form-group form-inline">
-          <label
-            for="almacen"
-            class="col-md-12 col-form-label"
-            >Almacen:</label
-          >
-          <div class="col-md-12 p-0">
-            <input
-              type="text"
-              class="form-control input-full"
-              id="almacen"
-              name="almacen"
-              style="text-transform: uppercase;"
-              oninput="this.value = this.value.toUpperCase();"
-              th:field="*{almacen}"
-            />
-             <!-- Mostrar error -->
-             <div class="text-danger" th:if="${#fields.hasErrors('almacen')}" th:errors="*{almacen}"></div>
-          </div>
-        </div>
-        <div class="col-md-1 form-group form-inline">
-          <label
-            for="preteldir"
-            class="col-md-12 col-form-label"
-            >Pref:</label
-          >
-          <div class="col-md-12 p-0">
-            <input
-              type="text"
-              class="form-control input-full"
-              id="preteldir"
-              name="preteldir"
-              style="text-transform: uppercase;"
-              oninput="this.value = this.value.toUpperCase();"
-              th:field="*{preteldir}"
-            />
-             <!-- Mostrar error -->
-             <div class="text-danger" th:if="${#fields.hasErrors('preteldir')}" th:errors="*{preteldir}"></div>
-          </div>
-        </div>
-        <div class="col-md-4 form-group form-inline">
-          <label
-            for="teldir"
-            class="col-md-12 col-form-label"
-            >Teléfono:</label
-          >
-          <div class="col-md-12 p-0">
-            <input
-              type="text"
-              class="form-control input-full"
-              id="teldir"
-              name="teldir"
-              style="text-transform: uppercase;"
-              oninput="this.value = this.value.toUpperCase();"
-              th:field="*{teldir}"
-            />
-             <!-- Mostrar error -->
-             <div class="text-danger" th:if="${#fields.hasErrors('teldir')}" th:errors="*{teldir}"></div>
-          </div>
-        </div>
-      </div>
-
-      <div class="row">
-        <div class="offset-md-1 col-md-3 form-group">
-          <label for="departamento">Departamento:</label>
-          <select class="form-select" id="departamento" th:field="*{dptodir}" onchange="updateCiudades()">
-          <option th:each="ciudad : ${municipios}" 
-          th:value="${ciudad.key}" 
-          th:text="${ciudad.key}"></option>              
-          </select>
-        </div>
-        <div class="col-md-3 form-group">
-          <label for="ciudad">Ciudad:</label>
-          <select class="form-select" id="ciudad" th:field="*{ciudir}" >
-                      
-          </select>
-        </div>
+    <div class="wrapper">
+        <div th:replace="~{ /fragments/sidebar :: sidebar}" ></div>
+        <div class="main-panel">
+            <form th:action="@{/rotulos/generar-rotulo}" method="post" th:object="${directorio}">
+                <!-- Campo NIT -->
+                <div>
+                    <label>NIT:</label>
+                    <input type="text" id="nitdir" th:field="*{nitdir}" 
+                           oninput=" cargarDatos()" class="form-control input-full">
+                </div>
         
+                <!-- Select Nombre -->
+                <div>
+                    <label>Nombre:</label>
+                    <select class="form-select" id="nomdir" th:field="*{nomdir}" 
+                            onchange="document.getElementById('nitdir').value=''; cargarDatos()">
+                        <option value="">Seleccione...</option>
+                        <option th:each="dir : ${directorios}" 
+                                th:value="${dir.nomdir}" 
+                                th:text="${dir.nomdir}"></option>
+                    </select>
+                </div>
+                <div class="row">
+
+              <div class="col-md-4">
+                <label for="diredir">Direccion:</label>
+                <input type="text" id="diredir" th:field="*{diredir}"   class="form-control input-full" required>
+              </div>
+              <div class="col-md-4">
+                <label for="ciudir">Ciudad:</label>
+                <input type="text" id="ciudir" th:field="*{ciudir}"   class="form-control input-full" required>
+              </div>
+              <div class="col-md-4">
+                <label for="dptodir">Departamento:</label>
+                <input type="text" id="dptodir" th:field="*{dptodir}"   class="form-control input-full" required>
+              </div>
+
+                </div>
+                <div class="row">
+
+                  <div class="col-md-4">
+                    <label for="preteldir">Pref:</label>
+                    <input type="text" id="preteldir" th:field="*{preteldir}"   class="form-control input-full" required>
+                  </div>
+                  <div class="col-md-4">
+                    <label for="teldir">Telefono:</label>
+                    <input type="text" id="teldir" th:field="*{teldir}"   class="form-control input-full" required>
+                  </div>
+                  <div class="col-md-4">
+                    <label for="almacen">Almacen:</label>
+                    <input type="text" id="almacen" th:field="*{almacen}"   class="form-control input-full" required>
+                  </div>
+
+                </div>
+                <!-- Resto de Campos -->
+                 
+                <div class="row">
+                  <div class="offset-md-3 col-md-6">
+                    <label for="cantidad">Cantidad:</label>
+                    <input type="text" id="cantidad" th:field="*{cantidad}"  oninput="this.value = this.value.replace(/[^0-9]/g, '');"  class="form-control input-full"  required>
+                  </div>
+                </div>
+                
+               
+                <button type="submit" class="btn btn-black">
+                  <span class="btn-label">
+                    <i class="fas fa-file-pdf"></i>
+                  </span>
+                  Generar Rotulo
+                </button>
+                
+            </form>
+              
+        </div>
+</div>
+
+<script th:inline="javascript">
+    function cargarDatos() {
+        const nit = document.getElementById('nitdir').value;
+        const nombre = document.getElementById('nomdir').value;
         
+        let url = '/rotulos/obtener-directorio?';
+          if(nit) {
+              url += `nit=${encodeURIComponent(nit)}`;
+          } else if(nombre) {
+              url += `nombre=${nombre}`; // Ya está codificado
+          } else {
+              return;
+          }
+
         
-        <div class="col-md-1 form-group form-inline">
-          <label
-            for="prefaxdir"
-            class="col-md-12 col-form-label"
-            >Pref:</label
-          >
-          <div class="col-md-12 p-0">
-            <input
-              type="text"
-              class="form-control input-full"
-              id="prefaxdir"
-              name="prefaxdir"
-              style="text-transform: uppercase;"
-              oninput="this.value = this.value.toUpperCase();"
-              th:field="*{prefaxdir}"
-            />
-             <!-- Mostrar error -->
-             <div class="text-danger" th:if="${#fields.hasErrors('prefaxdir')}" th:errors="*{prefaxdir}"></div>
-          </div>
-        </div>
-        <div class="col-md-3 form-group form-inline">
-          <label
-            for="faxdir"
-            class="col-md-12 col-form-label"
-            >Fax:</label
-          >
-          <div class="col-md-12 p-0">
-            <input
-              type="text"
-              class="form-control input-full"
-              id="faxdir"
-              name="faxdir"
-              style="text-transform: uppercase;"
-              oninput="this.value = this.value.toUpperCase();"
-              th:field="*{faxdir}"
-            />
-             <!-- Mostrar error -->
-             <div class="text-danger" th:if="${#fields.hasErrors('faxdir')}" th:errors="*{faxdir}"></div>
-          </div>
-        </div>
-      </div>
-
-
-      <div class="row">
-        <div class="offset-md-1 col-md-6 form-group form-inline">
-          <label
-            for="contacdir"
-            class="col-md-12 col-form-label"
-            >Contacto:</label
-          >
-          <div class="col-md-12 p-0">
-            <input
-              type="text"
-              class="form-control input-full"
-              id="contacdir"
-              name="contacdir"
-              style="text-transform: uppercase;"
-              oninput="this.value = this.value.toUpperCase();"
-              th:field="*{contacdir}"
-            />
-             <!-- Mostrar error -->
-             <div class="text-danger" th:if="${#fields.hasErrors('contacdir')}" th:errors="*{contacdir}"></div>
-          </div>
-        </div>
-        <div class="col-md-1 form-group form-inline">
-          <label
-            for="pretelcontacdir"
-            class="col-md-12 col-form-label"
-            >Pref:</label
-          >
-          <div class="col-md-12 p-0">
-            <input
-              type="text"
-              class="form-control input-full"
-              id="pretelcontacdir"
-              name="pretelcontacdir"
-              style="text-transform: uppercase;"
-              oninput="this.value = this.value.toUpperCase();"
-              th:field="*{pretelcontacdir}"
-            />
-             <!-- Mostrar error -->
-             <div class="text-danger" th:if="${#fields.hasErrors('pretelcontacdir')}" th:errors="*{pretelcontacdir}"></div>
-          </div>
-        </div>
-        <div class="col-md-3 form-group form-inline">
-          <label
-            for="telcontacdir"
-            class="col-md-12 col-form-label"
-            >Tel Contacto:</label
-          >
-          <div class="col-md-12 p-0">
-            <input
-              type="text"
-              class="form-control input-full"
-              id="telcontacdir"
-              name="telcontacdir"
-              style="text-transform: uppercase;"
-              oninput="this.value = this.value.toUpperCase();"
-              th:field="*{telcontacdir}"
-            />
-             <!-- Mostrar error -->
-             <div class="text-danger" th:if="${#fields.hasErrors('telcontacdir')}" th:errors="*{telcontacdir}"></div>
-          </div>
-        </div>
-      </div>
-
-      <div class="row">
-        <div class="offset-md-1 col-md-5 form-group">
-          <label for="vendedor">Vendedor:</label>
-          <select class="form-select" id="vendedor" th:field="*{nomvddor}">
-            <option value="NO APLICA">NO APLICA</option> 
-          <option th:each="vendedor : ${vendedores}" 
-          th:value="${vendedor.nomdir}" 
-          th:text="${vendedor.nomdir}"></option>              
-          </select>
-        </div>
-        
-      <div class="col-md-5 form-group">
-
-        <div class="form-check">
-          <input 
-              class="form-check-input" 
-              type="checkbox" 
-              id="clteCheckbox" 
-              th:field="*{clte}" 
-              th:value="'True'" 
-              onclick="updateCheckboxValue(this)">
-          <label class="form-check-label" for="clteCheckbox">Cliente</label>
-          <div class="text-danger" th:if="${#fields.hasErrors('clte')}" th:errors="*{clte}"></div>
-
-        </div>
-  
-      <div class="form-check">
-          <input 
-              class="form-check-input" 
-              type="checkbox" 
-              id="vddorCheckbox" 
-              th:field="*{vddor}" 
-              th:value="'True'" 
-              onclick="updateCheckboxValue(this)">
-          <label class="form-check-label" for="vddorCheckbox">Vendedor</label>
-          <div class="text-danger" th:if="${#fields.hasErrors('vddor')}" th:errors="*{vddor}"></div>
-
-      </div>
-  
-      <div class="form-check">
-          <input 
-              class="form-check-input" 
-              type="checkbox" 
-              id="emplCheckbox" 
-              th:field="*{empl}" 
-              th:value="'True'" 
-              onclick="updateCheckboxValue(this)">
-          <label class="form-check-label" for="emplCheckbox">Empleado</label>
-          <div class="text-danger" th:if="${#fields.hasErrors('empl')}" th:errors="*{empl}"></div>
-
-      </div>
-
-    </div>
-      
-    </div>
-  <div class="row">
-    <div class="offset-md-3 col-md-6">
-      <button type="submit" class="btn btn-success" style="width: 100%; height: 100px;" >Actualizar</button>
-    </div>
-  </div>
-
-
-  </form>
-
-  <!-- Scripts -->
-  <script  th:inline="javascript">
-    document.addEventListener("DOMContentLoaded", function () {
-      updateCiudades(); // Llama al método cuando el DOM esté listo
-  });
-    // JavaScript para manejar el evento de cambio del select
-    function updateCiudades() {
-        const municipios = /*[[${municipios}]]*/ {};
-        const select = document.getElementById("departamento");
-        const selectedKey = select.value; // Obtiene la clave seleccionada
-        const municipiosSelect = document.getElementById("ciudad");          
-        // Limpia la lista de municipios actuales
-        municipiosSelect.innerHTML = "";
-  
-        if (municipios[selectedKey]) {
-            // Obtén el array de municipios asociadas
-      const municipiosArray = municipios[selectedKey];
-
-
-      municipiosArray.forEach(function (municipio) {
-        const option = document.createElement("option");
-        option.value = municipio;
-        option.textContent = municipio;
-        municipiosSelect.appendChild(option);
-    });
-  
-        }
+            fetch(url)
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Error en la solicitud');
+            }
+            return response.json();
+        })
+        .then(data => {
+            if(data) {
+              document.getElementById('nitdir').value = data.nitdir || '';
+              document.getElementById('nomdir').value = data.nomdir || '';
+              document.getElementById('diredir').value = data.diredir || '';
+                document.getElementById('ciudir').value = data.ciudir || '';
+                document.getElementById('dptodir').value = data.dptodir || '';
+                document.getElementById('preteldir').value = data.preteldir || '';
+                document.getElementById('teldir').value = data.teldir || '';
+                document.getElementById('almacen').value = data.almacen || '';
+            }
+        })
+        .catch(error => console.error('Error:', error));
     }
-  </script>
+</script>
+   <!--   Core JS Files   -->
+   <script src="/assets/js/core/jquery-3.7.1.min.js"></script>
+   <script src="/assets/js/core/popper.min.js"></script>
+   <script src="/assets/js/core/bootstrap.min.js"></script>
+
+   <!-- Sweet Alert -->
+   <script src="/assets/js/plugin/sweetalert/sweetalert.min.js"></script>
+   <!-- jQuery Scrollbar -->
+   <script src="/assets/js/plugin/jquery-scrollbar/jquery.scrollbar.min.js"></script>
+   <!-- Datatables -->
+   <script src="/assets/js/plugin/datatables/datatables.min.js"></script>
+   <!-- Kaiadmin JS -->
+   <script src="/assets/js/kaiadmin.min.js"></script>
+   <!-- Kaiadmin DEMO methods, don't include it in your project! -->
+   <script src="/assets/js/setting-demo2.js"></script>
+
 </body>
 </html>

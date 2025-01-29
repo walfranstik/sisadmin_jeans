@@ -50,4 +50,26 @@ public class DirectorioService {
     public void deleteById(String id) {
         directorioRepository.deleteById(id);
     }
+    public Directorio findByNomdir(String nomdir) {
+        List<Directorio> directorio = directorioRepository.findByNomdir(nomdir);
+        if (!directorio.isEmpty()) {
+            for (Directorio dir : directorio) {
+                int nit = convertirAEntero(dir.getNitdir());
+                if ( nit >= 9999) {
+                    return dir;
+                 }
+            }
+            return directorio.get(0);
+        }else{
+            return null;
+        } 
+    }
+    public static int convertirAEntero(String numeroComoString) {
+        try {
+            return Integer.parseInt(numeroComoString);
+        } catch (NumberFormatException e) {
+            return 0; // Valor predeterminado si ocurre una excepción
+        }
+    }
+    
 }
