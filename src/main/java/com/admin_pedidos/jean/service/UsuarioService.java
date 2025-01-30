@@ -39,4 +39,7 @@ public class UsuarioService {
     public void deleteById(int id) {
         usuarioRepository.deleteById(id);
     }
+    public Usuario autenticarUsuario(String usuario, String clave) {
+        return usuarioRepository.findByNomusuarioAndClaveusuario(usuario, clave);
+    }
 }

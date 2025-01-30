@@ -33,7 +33,7 @@
 </head>
 <body>
     <div class="wrapper">
-        <div th:replace="~{ /fragments/sidebar :: sidebar}" ></div>
+        <div th:replace="~{fragments/sidebar :: sidebar}" ></div>
         <div class="main-panel">
             <form th:action="@{/rotulos/generar-rotulo}" method="post" th:object="${directorio}">
                 <!-- Campo NIT -->
