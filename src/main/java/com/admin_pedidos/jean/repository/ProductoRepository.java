@@ -17,6 +17,7 @@ public interface ProductoRepository extends JpaRepository<Producto, Integer> {
            "LOWER(p.descref) LIKE LOWER(CONCAT('%',:keyword, '%')) " +
            "ORDER BY p.id_pdto DESC")
     Page<Producto> search(@Param("keyword") String keyword, Pageable pageable);
+    boolean existsByRef(String ref);
 }
 
 

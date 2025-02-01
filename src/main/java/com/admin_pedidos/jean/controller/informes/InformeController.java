@@ -24,7 +24,11 @@ import com.admin_pedidos.jean.service.ColeccionService;
 import com.admin_pedidos.jean.service.DirectorioService;
 import com.admin_pedidos.jean.service.PedidoService;
 import com.admin_pedidos.jean.service.ProductoService;
+import com.itextpdf.layout.element.Cell;
+import com.itextpdf.layout.element.Paragraph;
 import com.itextpdf.layout.element.Table;
+import com.itextpdf.layout.properties.TextAlignment;
+import com.itextpdf.layout.properties.VerticalAlignment;
 import com.itextpdf.kernel.events.PdfDocumentEvent;
 import com.itextpdf.kernel.geom.PageSize;
 import com.itextpdf.kernel.pdf.PdfDocument;
@@ -80,18 +84,24 @@ public class InformeController {
             String fechaActual = new SimpleDateFormat("dd/MM/yyyy").format(new Date());
             pdf.addEventHandler(PdfDocumentEvent.START_PAGE, new HeaderEventHandler("Pedidos de la Coleccion " + coleccion + " "+ "Del vendedor: " + vendedor,
                                                                                     fechaActual,"INFORME DE PEDIDOS"));
-            pdf.addEventHandler(PdfDocumentEvent.END_PAGE, new FooterEventHandler());
+            
+            
             Document document = new Document(pdf);
-            document.setMargins(80, 25, 50, 25);
+            document.setMargins(90, 25, 50, 25);
             Table table = PdfGeneratorUtil.createMainTable(false);
             
             datos.forEach((ref, valores) -> {
                 table.addCell(ref + " " + referencias.get(ref));
                 for(int i = 1; i <= 10; i++) {
-                    table.addCell(String.valueOf(valores.get("t"+i)));
+                     Cell cell = new Cell().add(new Paragraph(String.valueOf(valores.get("t"+i))));
+                    cell.setTextAlignment(TextAlignment.RIGHT); // Align text
+                    cell.setVerticalAlignment(VerticalAlignment.MIDDLE);
+                    table.addCell(cell);
                 }
-                table.addCell(String.valueOf(valores.get("total")));
-                table.addCell("");
+                Cell cell2 = new Cell().add(new Paragraph(String.valueOf(valores.get("total"))));
+                    cell2.setTextAlignment(TextAlignment.RIGHT); // Align text
+                    cell2.setVerticalAlignment(VerticalAlignment.MIDDLE);
+                table.addCell(cell2);
             });
             
             document.add(table);
@@ -179,9 +189,8 @@ public class InformeController {
             pdf.setDefaultPageSize(PageSize.A4.rotate());
             String fechaActual = new SimpleDateFormat("dd/MM/yyyy").format(new Date());
             pdf.addEventHandler(PdfDocumentEvent.START_PAGE, new HeaderEventHandler(titulo, fechaActual, "INFORME DE PEDIDOS"));
-            pdf.addEventHandler(PdfDocumentEvent.END_PAGE, new FooterEventHandler());
             Document document = new Document(pdf);
-            document.setMargins(80, 25, 50, 25);
+            document.setMargins(90, 25, 50, 25);
             Table table = PdfGeneratorUtil.createMainTable(mostrarCliente);
 
             Map<String,String> referencias = productoService.findAll().stream()
@@ -200,10 +209,15 @@ public class InformeController {
                 table.addCell(key + "-" +referencias.get(key));
                 }
                 for (int i = 1; i <= 10; i++) {
-                    table.addCell(String.valueOf(valores.get("t" + i)));
+                     Cell cell = new Cell().add(new Paragraph(String.valueOf(valores.get("t"+i))));
+                    cell.setTextAlignment(TextAlignment.RIGHT); // Align text
+                    cell.setVerticalAlignment(VerticalAlignment.MIDDLE);
+                    table.addCell(cell);
                 }
-                table.addCell(String.valueOf(valores.get("total")));
-                table.addCell(" ");
+                    Cell cell2 = new Cell().add(new Paragraph(String.valueOf(valores.get("total"))));
+                    cell2.setTextAlignment(TextAlignment.RIGHT); // Align text
+                    cell2.setVerticalAlignment(VerticalAlignment.MIDDLE);
+                table.addCell(cell2);
             });
 
             document.add(table);

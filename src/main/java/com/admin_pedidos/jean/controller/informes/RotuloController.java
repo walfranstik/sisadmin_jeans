@@ -76,7 +76,6 @@ public class RotuloController {
             // Fuente del documento
             PdfFont font = PdfFontFactory.createFont(StandardFonts.HELVETICA_BOLD);
             document.setFont(font);
-            document.setFontSize(13);
             document.setBottomMargin(0);
             document.setTopMargin(0);
             document.setLeftMargin(0);
@@ -92,23 +91,32 @@ public class RotuloController {
            
             
             // Agregar elementos con posicionamiento absoluto
+            document.setFontSize(15);
           
-            addText(document, directorio.getNomdir(), 6*cm, pageHeight - 5.5f*cm, 420);  // Nombre
+            addText(document, "NIT:  " + directorio.getNitdir(), 13.6f*cm, pageHeight - 4*cm, 200);  // NIT
+            
+            document.setFontSize(16);
+            
+            addText(document, directorio.getNomdir(), 5.8f*cm, pageHeight - 5.2f*cm, 420);  // Nombre
 
-            addText(document, "NIT:  " + directorio.getNitdir(), 13*cm, pageHeight - 4.5f*cm, 200);  // NIT
+            document.setFontSize(17);
             
             addText(document, directorio.getDiredir(), 6*cm, pageHeight - 6.5f*cm, 400); // Dirección
 
-            addText(document, directorio.getAlmacen(), 6*cm, pageHeight - 7.2f*cm, 300); // Almacen
+            document.setFontSize(15);
+
+            addText(document, directorio.getAlmacen(), 6*cm, pageHeight - 7.1f*cm, 300); // Almacen
+
+            document.setFontSize(17);
 
             addText(document, directorio.getPreteldir() + " - " + directorio.getTeldir(), 
-                    6*cm, pageHeight - 8.5f*cm, 200); // Teléfono
+                    6*cm, pageHeight - 8.4f*cm, 200); // Teléfono
 
             addText(document, "Cantidad:  " + String.valueOf(directorio.getCantidad()),
-             13*cm, pageHeight - 8.5f*cm, 200); // cantidad
+             13*cm, pageHeight - 8.4f*cm, 200); // cantidad
 
             addText(document, directorio.getCiudir() + "-" + directorio.getDptodir() ,
-             6*cm, pageHeight - 10*cm, 450);  // Ciudad-Departamento
+             6*cm, pageHeight - 10.3f*cm, 450);  // Ciudad-Departamento
             
             
             // Cerrar documento

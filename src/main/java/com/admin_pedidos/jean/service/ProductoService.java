@@ -31,6 +31,10 @@ public class ProductoService {
         return productoRepository.findById(id);
     }
 
+    public boolean existsByRef(String ref) {
+        return productoRepository.existsByRef(ref);
+    }
+
     public Producto save(Producto producto) {
         return productoRepository.save(producto);
     }

@@ -17,20 +17,20 @@ public class JeanApplication {
 		SpringApplication.run(JeanApplication.class, args);
 	}
 
-	  @EventListener(ApplicationReadyEvent.class)
-    public void abrirNavegador() {
-        try {
-            String url = "http://localhost:9191";
-            if (Desktop.isDesktopSupported()) {
-                Desktop desktop = Desktop.getDesktop();
-                desktop.browse(new URI(url));
-            } else {
-                Runtime runtime = Runtime.getRuntime();
-                runtime.exec("rundll32 url.dll,FileProtocolHandler " + url);
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
+	//   @EventListener(ApplicationReadyEvent.class)
+    // public void abrirNavegador() {
+    //     try {
+    //         String url = "http://localhost:9191";
+    //         if (Desktop.isDesktopSupported()) {
+    //             Desktop desktop = Desktop.getDesktop();
+    //             desktop.browse(new URI(url));
+    //         } else {
+    //             Runtime runtime = Runtime.getRuntime();
+    //             runtime.exec("rundll32 url.dll,FileProtocolHandler " + url);
+    //         }
+    //     } catch (Exception e) {
+    //         e.printStackTrace();
+    //     }
+    // }
 
 }

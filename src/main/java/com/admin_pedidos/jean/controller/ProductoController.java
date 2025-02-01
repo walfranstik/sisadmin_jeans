@@ -163,9 +163,13 @@ public class ProductoController {
     // Guardar un nuevo producto
     @PostMapping
     public String saveProducto(@Valid @ModelAttribute Producto producto, BindingResult result, Model model) {
-        if (result.hasErrors()) {
+        
+        if (result.hasErrors() || productoService.existsByRef(producto.getRef())) {
             model.addAttribute("producto", producto);
             model.addAttribute("colecciones", ColeccionService.findAll());
+            if (productoService.existsByRef(producto.getRef())) {
+                result.rejectValue("ref", "error.ref", "La Referencia ya existe. Por favor, usa otro.");
+            }
 
 
 
@@ -277,11 +281,13 @@ public class ProductoController {
     // Actualizar un producto
     @PostMapping("/update/{id}")
     public String updateProducto(@PathVariable int id, @Valid @ModelAttribute Producto producto, BindingResult result, Model model) {
-        if (result.hasErrors()) {
+        if (result.hasErrors() || productoService.existsByRef(producto.getRef())) {
             producto.setId_pdto(id);
             model.addAttribute("producto", producto);
             model.addAttribute("colecciones", ColeccionService.findAll());
-
+        if (productoService.existsByRef(producto.getRef())) {
+                result.rejectValue("ref", "error.ref", "La Referencia ya existe. Por favor, usa otro.");
+            }
 
         model.addAttribute("marcas", MarcaService.findAll().stream()
             .collect(Collectors.toMap(

@@ -42,7 +42,7 @@
           <div class="row">
 
             <div class="col-md-6">
-              <select class="form-select" id="coleccion" name="coleccion" onchange="updateReferencias()">
+              <select class="form-select" id="coleccion" name="coleccion" onchange="updateReferencias(),updateDescripcion()">
                 <option th:each="c : ${colecciones}" 
                         th:value="${c.codcole}"
                         th:text="${c.codcole}"></option>
