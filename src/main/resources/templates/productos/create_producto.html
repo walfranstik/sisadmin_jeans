@@ -47,6 +47,8 @@
                 type="text"
                 class="form-control input-full"
                 id="ref"
+                style="text-transform: uppercase;"
+                oninput="this.value = this.value.toUpperCase();"
                 th:field="*{ref}"
               />
                <!-- Mostrar error -->

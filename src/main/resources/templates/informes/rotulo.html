@@ -50,8 +50,8 @@
                             onchange="document.getElementById('nitdir').value=''; cargarDatos()">
                         <option value="">Seleccione...</option>
                         <option th:each="dir : ${directorios}" 
-                                th:value="${dir.nomdir}" 
-                                th:text="${dir.nomdir}"></option>
+                                th:value="${dir}" 
+                                th:text="${dir}"></option>
                     </select>
                 </div>
                 <div class="row">

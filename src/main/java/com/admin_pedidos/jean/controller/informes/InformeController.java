@@ -29,10 +29,15 @@ import com.itextpdf.layout.element.Paragraph;
 import com.itextpdf.layout.element.Table;
 import com.itextpdf.layout.properties.TextAlignment;
 import com.itextpdf.layout.properties.VerticalAlignment;
+import com.itextpdf.io.font.constants.StandardFonts;
 import com.itextpdf.kernel.events.PdfDocumentEvent;
+import com.itextpdf.kernel.font.PdfFontFactory;
 import com.itextpdf.kernel.geom.PageSize;
+import com.itextpdf.kernel.geom.Rectangle;
 import com.itextpdf.kernel.pdf.PdfDocument;
 import com.itextpdf.kernel.pdf.PdfWriter;
+import com.itextpdf.kernel.pdf.canvas.PdfCanvas;
+import com.itextpdf.kernel.pdf.xobject.PdfFormXObject;
 import com.itextpdf.layout.Document;
 
 import jakarta.servlet.http.HttpServletResponse;
@@ -63,51 +68,16 @@ public class InformeController {
         @RequestParam String vendedor,
         @RequestParam String coleccion,
         HttpServletResponse response) throws IOException {
-
-        Map<String,String> referencias = productoService.findAll().stream()
-        .collect(Collectors.toMap(
-            Producto::getRef, // Clave: codCole
-            Producto::getDescref, // Valor: desCole
-            (existing, replacement) -> replacement, // Resolver duplicados
-            HashMap::new // Crear un HashMap
-        ));
-        
         List<Pedido> pedidos = pedidoService.findByVddorAndColeccion(vendedor, coleccion);
         Map<String, Map<String, Integer>> datos = procesarDatos(pedidos);
 
        
 
+        generarPdf(response, "PEDIDOS DE LA COLECCION: " + coleccion + " DEL VENDEDOR: " + vendedor, datos, false);
         
-        response.setContentType("application/pdf");
-        try (PdfDocument pdf = new PdfDocument(new PdfWriter(response.getOutputStream()))) {
-            pdf.setDefaultPageSize(PageSize.A4.rotate());
-            String fechaActual = new SimpleDateFormat("dd/MM/yyyy").format(new Date());
-            pdf.addEventHandler(PdfDocumentEvent.START_PAGE, new HeaderEventHandler("Pedidos de la Coleccion " + coleccion + " "+ "Del vendedor: " + vendedor,
-                                                                                    fechaActual,"INFORME DE PEDIDOS"));
-            
-            
-            Document document = new Document(pdf);
-            document.setMargins(90, 25, 50, 25);
-            Table table = PdfGeneratorUtil.createMainTable(false);
-            
-            datos.forEach((ref, valores) -> {
-                table.addCell(ref + " " + referencias.get(ref));
-                for(int i = 1; i <= 10; i++) {
-                     Cell cell = new Cell().add(new Paragraph(String.valueOf(valores.get("t"+i))));
-                    cell.setTextAlignment(TextAlignment.RIGHT); // Align text
-                    cell.setVerticalAlignment(VerticalAlignment.MIDDLE);
-                    table.addCell(cell);
-                }
-                Cell cell2 = new Cell().add(new Paragraph(String.valueOf(valores.get("total"))));
-                    cell2.setTextAlignment(TextAlignment.RIGHT); // Align text
-                    cell2.setVerticalAlignment(VerticalAlignment.MIDDLE);
-                table.addCell(cell2);
-            });
-            
-            document.add(table);
-            PdfGeneratorUtil.addTotalRow(document, calcularTotalesGenerales(datos));
+        
         }
-    }
+    
     
 // Informe por Cliente y Colección
     @GetMapping("/cliente-coleccion")
@@ -126,7 +96,7 @@ public class InformeController {
         List<Pedido> pedidos = pedidoService.findByClteAndColeccion(cliente, coleccion);
         Map<String, Map<String, Integer>> datos = procesarDatos(pedidos);
 
-        generarPdf(response, "Pedidos de la Colección " + coleccion + " del Cliente: " + cliente, datos, false);
+        generarPdf(response, "PEDIDOS DE LA COLECCION: " + coleccion + " DEL CLIENTE: " + cliente, datos, false);
     }
 
     // Informe por Referencia y Colección
@@ -162,7 +132,7 @@ public class InformeController {
                                         .map(this::extraerTallas)
                                         .reduce(new HashMap<>(), this::combinarTallas)))));
 
-        generarPdf(response, "Pedidos de la Referencia " + referencia + ": "+ descripcion +
+        generarPdf(response, "PEDIDOS DE LA REFERENCIA " + referencia + ": "+ descripcion +
         " -> Coleccion: " + coleccion, datos, true);
     }
     // Informe por Colección
@@ -180,50 +150,85 @@ public class InformeController {
         List<Pedido> pedidos = pedidoService.findByColeccion(coleccion);
         Map<String, Map<String, Integer>> datos = procesarDatos(pedidos);
 
-        generarPdf(response, "Pedidos de la Colección: " + coleccion, datos, false);
+        generarPdf(response, "PEDIDOS DE LA COLECCION: " + coleccion, datos, false);
     }
+private void generarPdf(HttpServletResponse response, String titulo, Map<String, Map<String, Integer>> datos, boolean mostrarCliente) throws IOException {
+    response.setContentType("application/pdf");
 
-    private void generarPdf(HttpServletResponse response, String titulo, Map<String, Map<String, Integer>> datos, boolean mostrarCliente) throws IOException {
-        response.setContentType("application/pdf");
-        try (PdfDocument pdf = new PdfDocument(new PdfWriter(response.getOutputStream()))) {
-            pdf.setDefaultPageSize(PageSize.A4.rotate());
-            String fechaActual = new SimpleDateFormat("dd/MM/yyyy").format(new Date());
-            pdf.addEventHandler(PdfDocumentEvent.START_PAGE, new HeaderEventHandler(titulo, fechaActual, "INFORME DE PEDIDOS"));
-            Document document = new Document(pdf);
-            document.setMargins(90, 25, 50, 25);
-            Table table = PdfGeneratorUtil.createMainTable(mostrarCliente);
+    try (PdfDocument pdf = new PdfDocument(new PdfWriter(response.getOutputStream()))) {
+        // Establecer tamaño de página
+        pdf.setDefaultPageSize(PageSize.A4.rotate());
+        
+        // Formatear fecha para el header (según tu ejemplo)
+        String fechaActual = new SimpleDateFormat("dd/MM/yyyy").format(new Date());
+        
+        // Agregar header (suponiendo que ya tienes implementado HeaderEventHandler)
+        pdf.addEventHandler(PdfDocumentEvent.START_PAGE, new HeaderEventHandler(titulo, fechaActual, "INFORME DE PEDIDOS"));
+        
+        // Crear el documento
+        Document document = new Document(pdf);
+        document.setMargins(90, 25, 35, 25);
 
-            Map<String,String> referencias = productoService.findAll().stream()
-            .collect(Collectors.toMap(
-                Producto::getRef, // Clave: codCole
-                Producto::getDescref, // Valor: desCole
-                (existing, replacement) -> replacement, // Resolver duplicados
-                HashMap::new // Crear un HashMap
-            ));
-            datos.forEach((key, valores) -> {
-                if (mostrarCliente) {
+        // Crear un placeholder para el total de páginas (dimensiones arbitrarias)
+        PdfFormXObject placeholder = new PdfFormXObject(new Rectangle(0, 0, 30, 12));
+        
+        // Agregar el footer con el handler (ajusta yPosition y fontSize según necesites)
+        pdf.addEventHandler(PdfDocumentEvent.END_PAGE, new FooterEventHandler(placeholder, 15, 10));
+
+        // Aquí agregas tu contenido (por ejemplo, una tabla)
+        Table table = PdfGeneratorUtil.createMainTable(mostrarCliente);
+
+        Map<String, String> referencias = productoService.findAll().stream()
+                .collect(Collectors.toMap(
+                        Producto::getRef,
+                        Producto::getDescref,
+                        (existing, replacement) -> replacement,
+                        HashMap::new
+                ));
+
+        datos.forEach((key, valores) -> {
+            if (mostrarCliente) {
                 table.addCell(key);
-                    
-                }else {
-                
-                table.addCell(key + "-" +referencias.get(key));
-                }
-                for (int i = 1; i <= 10; i++) {
-                     Cell cell = new Cell().add(new Paragraph(String.valueOf(valores.get("t"+i))));
-                    cell.setTextAlignment(TextAlignment.RIGHT); // Align text
-                    cell.setVerticalAlignment(VerticalAlignment.MIDDLE);
-                    table.addCell(cell);
-                }
-                    Cell cell2 = new Cell().add(new Paragraph(String.valueOf(valores.get("total"))));
-                    cell2.setTextAlignment(TextAlignment.RIGHT); // Align text
-                    cell2.setVerticalAlignment(VerticalAlignment.MIDDLE);
-                table.addCell(cell2);
-            });
+            } else {
+                table.addCell(key).setFontSize(10).setBold();
+                table.addCell(referencias.get(key) != null ? referencias.get(key) : "N/A").setFontSize(10).setBold();
+            }
+            for (int i = 1; i <= 10; i++) {
+                Cell cell = new Cell().add(new Paragraph(String.valueOf(valores.get("t" + i) != null ? valores.get("t" + i) : "0")))
+                        .setTextAlignment(TextAlignment.RIGHT)
+                        .setVerticalAlignment(VerticalAlignment.MIDDLE)
+                        .setFontSize(11)
+                        .setBold();
+                table.addCell(cell);
+            }
+            Object totalValue = valores.get("total");
+            Cell cell2 = new Cell().add(new Paragraph(totalValue != null ? String.valueOf(totalValue) : "N/A"))
+                    .setTextAlignment(TextAlignment.RIGHT)
+                    .setVerticalAlignment(VerticalAlignment.MIDDLE)
+                    .setFontSize(11)
+                    .setBold();
+            table.addCell(cell2);
+        });
+        // Agrega el contenido, la tabla, etc.
+        document.add(table);
+        PdfGeneratorUtil.addTotalRow(document, calcularTotalesGenerales(datos));
 
-            document.add(table);
-            PdfGeneratorUtil.addTotalRow(document, calcularTotalesGenerales(datos));
-        }
+        // --- Actualizar el placeholder con el total de páginas ---
+        // En este punto ya se han agregado todas las páginas, pero aún no se ha cerrado el documento
+        int totalPages = pdf.getNumberOfPages();
+        PdfCanvas canvasPlaceholder = new PdfCanvas(placeholder, pdf);
+        canvasPlaceholder.beginText();
+        canvasPlaceholder.setFontAndSize(PdfFontFactory.createFont(StandardFonts.HELVETICA), 10);
+        canvasPlaceholder.moveText(0, 5);
+        canvasPlaceholder.showText(String.valueOf(totalPages));
+        canvasPlaceholder.endText();
+        canvasPlaceholder.release();
+
+        // Ahora cerrar el documento (lo que también cierra el PdfDocument)
+        document.close();
     }
+}
+    
 
 
     private Map<String, Map<String, Integer>> procesarDatos(List<Pedido> pedidos) {

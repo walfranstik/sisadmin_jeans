@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>Lista de Pedidos</title>
+    <title>Informe Pedidos</title>
      <!-- Fonts and icons -->
      <script src="/assets/js/plugin/webfont/webfont.min.js"></script>
      <script>
@@ -40,17 +40,22 @@
         <div class="card">
           <div class="card-header">
             <h1>Pedidos</h1>
-            <a class="btn btn-primary" href="/pedidos/new">
-                <span class="btn-label">
-                <i class="fas fa-plus-circle"></i>
-              </span>
-              Crear nuevo Pedido
-            </a>
+            <form th:action="@{/informe-pedido}" method="post" class="d-flex mb-3">
+              <div class="form-group" style="margin-left: auto;">
+                  <label class="form-label" for="numped">#Pedido</label>
+                  <select class="form-select" id="numped" th:name="numped" style="width: auto;" >
+                  <option th:each="nump : ${numped}" 
+                  th:value="${nump}" 
+                  th:text="${nump}"></option>              
+                  </select>
+            </div>
+              <button type="submit" class="btn btn-primary" style="opacity: 90%;">Ver pedido</button>
+            </form>
           </div>
           <div class="card-body">
             <div class="table-responsive">
-              <!-- Formulario de búsqueda con Bootstrap -->
-              <form th:action="@{/pedidos}" method="get" class="d-flex mb-3">
+                <!-- Formulario de búsqueda con Bootstrap -->
+              <form th:action="@{/informe-pedido}" method="get" class="d-flex mb-3">
                 <input 
                     type="text" 
                     name="keyword" 
@@ -60,74 +65,54 @@
                     aria-label="Buscar">
                 <button type="submit" class="btn btn-primary">Buscar</button>
               </form>
-
+              <!-- Formulario de búsqueda con Bootstrap -->
               <table
                
                 class="display table table-striped table-hover"
               >
                 <thead>
                   <tr>
-                    <th>Fecha</th>
                     <th>#Pedido</th>
-                    <th>Nombre Vendedor</th>
-                    <th>Colección</th>
-                    <th>Ref</th>
                     <th>Cliente</th>
-                    <th>Total</th>
-                    <th>Total Prendas</th>
                     <th>Acciones</th>
-                    <th>obs generales</th>
                   </tr>
                 </thead>
                 <tfoot>
                     <tr>
-                      <th>Fecha</th>
                       <th>#Pedido</th>
-                      <th>Nombre Vendedor</th>
-                      <th>Colección</th>
-                      <th>Ref</th>
                       <th>Cliente</th>
-                      <th>Total</th>
-                      <th>Total Prendas</th>
                       <th>Acciones</th>
-                      <th>obs generales</th>
                     </tr>
                 </tfoot>
                 <tbody>
                     <tr th:each="pedido : ${pedidos}">
-                        <td th:text="${pedido.fechaped}"></td>
                         <td th:text="${pedido.numped}"></td>
-                        <td th:text="${pedido.vddor}"></td>
-                        <td th:text="${pedido.col}"></td>
-                        <td th:text="${pedido.ref}"></td>
                         <td th:text="${pedido.clte}"></td>
-                        <td th:text="${pedido.getTotalFormateado}"></td>
-                        <td th:text="${pedido.tprendas}"></td>
-                        
                         <td>
-                          <button
-                          type="button"
-                          class="btn btn-danger alert_demo_8"
-                          th:data-href="@{/pedidos/delete/{id}(id=${pedido.numped})}"
-                          th:data-numped="${pedido.numped}">
-                        <span class="btn-label">
-                          <i class="fas fa-trash-alt"></i>
-                        </span>
-                        Eliminar
-                          </button>
+                          <form th:action="@{/informe-pedido}" method="post" class="d-flex mb-3">
+                            <input type="text" name="numped" th:value="${pedido.numped}" hidden>
+                                <button
+                                  type="submit"
+                                  class="btn btn-primary">
+                                    <span class="btn-label">
+                                      <i class="fas fa-eye"></i>
+                                    </span>
+                                  Ver
+                                </button>
+                          </form>
                         </td>
-
-                        <td th:text="${pedido.obsgen}"></td>
 
                     </tr>
                 </tbody>
               </table>
+
+
               <div class="d-flex justify-content-center mt-4">
                 <nav aria-label="Page navigation">
                   <ul class="pagination">
                     <!-- Botón Anterior -->
                     <li class="page-item" th:classappend="${currentPage == 0} ? 'disabled'">
-                      <a class="page-link" th:href="@{/pedidos(keyword=${keyword} ,page=${currentPage - 1}, size=${10})}" aria-label="Anterior">
+                      <a class="page-link" th:href="@{/informe-pedido(keyword=${keyword} ,page=${currentPage - 1}, size=${10})}" aria-label="Anterior">
                         <span aria-hidden="true">&laquo;</span>
                       </a>
                     </li>
@@ -137,7 +122,7 @@
                         th:if="${pageNum < 5}"
                         th:classappend="${pageNum == currentPage} ? 'active' : ''"
                         class="page-item">
-                      <a class="page-link" th:href="@{/pedidos(keyword=${keyword} ,page=${pageNum}, size=${10})}" th:text="${pageNum + 1}"></a>
+                      <a class="page-link" th:href="@{/informe-pedido(keyword=${keyword} ,page=${pageNum}, size=${10})}" th:text="${pageNum + 1}"></a>
                     </li>
 
                     <!-- Puntos suspensivos antes de la página actual -->
@@ -152,7 +137,7 @@
               
                     <!-- Página actual si está fuera del rango inicial y final -->
                     <li class="page-item active" th:if="${currentPage >= 5 && currentPage <= totalPages - 6}">
-                      <a class="page-link" th:href="@{/pedidos(keyword=${keyword} ,page=${currentPage}, size=${10})}" th:text="${currentPage + 1}"></a>
+                      <a class="page-link" th:href="@{/informe-pedido(keyword=${keyword} ,page=${currentPage}, size=${10})}" th:text="${currentPage + 1}"></a>
                     </li>
               
                     <!-- Puntos suspensivos después de la página actual -->
@@ -165,12 +150,12 @@
                         th:if="${pageNum >= totalPages - 5 && pageNum <= totalPages && totalPages > 9}"
                         th:classappend="${pageNum == currentPage} ? 'active' : ''"
                         class="page-item">
-                      <a class="page-link" th:href="@{/pedidos(keyword=${keyword} ,page=${pageNum}, size=${10})}" th:text="${pageNum + 1}"></a>
+                      <a class="page-link" th:href="@{/informe-pedido(keyword=${keyword} ,page=${pageNum}, size=${10})}" th:text="${pageNum + 1}"></a>
                     </li>
               
                     <!-- Botón Siguiente -->
                     <li class="page-item" th:classappend="${currentPage + 1 == totalPages} ? 'disabled'">
-                      <a class="page-link" th:href="@{/pedidos(keyword=${keyword} ,page=${currentPage + 1}, size=${10})}" aria-label="Siguiente">
+                      <a class="page-link" th:href="@{/informe-pedido(keyword=${keyword} ,page=${currentPage + 1}, size=${10})}" aria-label="Siguiente">
                         <span aria-hidden="true">&raquo;</span>
                       </a>
                     </li>
@@ -200,64 +185,7 @@
     <!-- Kaiadmin DEMO methods, don't include it in your project! -->
     <script src="/assets/js/setting-demo2.js"></script>
 
-    <script>
-        //== Class definition
-        var SweetAlert2Demo = (function () {
-          //== Demos
-          var initDemos = function () {
-           
-    
-            $(".alert_demo_8").click(function (e) {
-
-              var urlEliminar = $(this).data('href'); 
-              var numped = $(this).data('numped'); // Recupera el número de pedido
-
-              swal({
-                title: "¿Estás seguro de eliminar el Pedido "+ numped + "?",
-                text: "Se eliminaran todos los registros que tengan este numero de pedido!",
-                type: "advertencia",
-                buttons: {
-                  cancel: {
-                    visible: true,
-                    text: "No, cancel!",
-                    className: "btn btn-danger",
-                  },
-                  confirm: {
-                    text: "Si, Eliminar!",
-                    className: "btn btn-success",
-                  },
-                },
-              }).then((willDelete) => {
-                if (willDelete) {
-
-                  window.location.href = urlEliminar;
-
-                } else {
-                  swal("¡Tu elemento está seguro!", {
-                    buttons: {
-                      confirm: {
-                        className: "btn btn-success",
-                      },
-                    },
-                  });
-                }
-              });
-            });
-          };
-    
-          return {
-            //== Init
-            init: function () {
-              initDemos();
-            },
-          };
-        })();
-    
-        //== Class Initialization
-        jQuery(document).ready(function () {
-          SweetAlert2Demo.init();
-        });
-    </script>
+   
 
 </body>
 </html>

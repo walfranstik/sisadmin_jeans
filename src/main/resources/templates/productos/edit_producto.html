@@ -47,6 +47,7 @@
                 class="form-control input-full"
                 id="ref"
                 th:field="*{ref}"
+                readonly
               />
                <!-- Mostrar error -->
                <div class="text-danger" th:if="${#fields.hasErrors('ref')}" th:errors="*{ref}"></div>

@@ -1,6 +1,7 @@
 package com.admin_pedidos.jean.controller.informes;
 
 import java.io.IOException;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -38,7 +39,11 @@ public class RotuloController {
         @GetMapping
         public String mostrarForm(Model model) {
             model.addAttribute("directorio", new RotuloDto());
-            model.addAttribute("directorios", directorioService.findAll());
+            model.addAttribute("directorios",  directorioService.findAll()
+                                .stream()
+                                .map(Directorio::getNomdir) // Extrae el dato 'nomdir'
+                                .sorted()                  // Ordena alfabéticamente
+                                .collect(Collectors.toList()));
             return "informes/rotulo";
         }
 

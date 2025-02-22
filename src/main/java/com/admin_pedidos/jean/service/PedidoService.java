@@ -9,6 +9,8 @@ import org.springframework.stereotype.Service;
 import com.admin_pedidos.jean.entity.Pedido;
 import com.admin_pedidos.jean.repository.PedidoRepository;
 
+import jakarta.transaction.Transactional;
+
 import java.util.List;
 import java.util.Optional;
 
@@ -18,10 +20,10 @@ public class PedidoService {
     @Autowired
     private PedidoRepository pedidoRepository;
 
-    
-    public Page<Pedido> findAllPaginated(int page, int size) {
-        Pageable pageable = PageRequest.of(page, size);
-        return pedidoRepository.findAll(pageable);
+
+
+    public List<Pedido> findAll() {
+        return pedidoRepository.findAll();
     }
 
     public Page<Pedido> searchPedidos(String keyword, int page, int size) {
@@ -45,6 +47,20 @@ public class PedidoService {
         return pedidoRepository.findByRefAndCol(ref, coleccion);
     }
 
+    @Transactional
+    public void deleteByNumped(String numped) {
+        pedidoRepository.deleteByNumped(numped);
+    }
+    
+
+    public boolean existsByNumped( String numped) {
+        return pedidoRepository.existsByNumped(numped);
+    }
+
+    public List<Pedido> findByNumped( String numped) {
+        return pedidoRepository.findByNumped(numped);
+    }
+
     public List<Pedido> findByColeccion(String coleccion) {
         return pedidoRepository.findByCol(coleccion);
     }
@@ -54,7 +70,5 @@ public class PedidoService {
     }
 
 
-    public void deleteById(long id) {
-        pedidoRepository.deleteById(id);
-    }
+   
 }

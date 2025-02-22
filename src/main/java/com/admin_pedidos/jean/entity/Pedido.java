@@ -2,6 +2,7 @@ package com.admin_pedidos.jean.entity;
 
 
 import java.text.DecimalFormat;
+import java.text.DecimalFormatSymbols;
 import java.util.Date;
 
 import org.springframework.format.annotation.DateTimeFormat;
@@ -302,10 +303,17 @@ public class Pedido {
     }
    
     public String getTotalFormateado() {
-        DecimalFormat df = new DecimalFormat("#");
-        df.setMaximumFractionDigits(12); // Ajusta según la precisión que necesites
+        // Configura los símbolos de formato: punto para miles y coma para decimales.
+        DecimalFormatSymbols symbols = new DecimalFormatSymbols();
+        symbols.setGroupingSeparator('.');
+        symbols.setDecimalSeparator(',');
+    
+        // El patrón "#,##0.##" muestra decimales solo si existen, hasta un máximo de dos.
+        DecimalFormat df = new DecimalFormat("#,##0.##", symbols);
         return df.format(total);
-    }  // Formatea el total a dos decimales.
+    }
+    
+
 
     public void setTotal(double total) {
         this.total = total;

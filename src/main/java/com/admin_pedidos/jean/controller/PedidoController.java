@@ -86,7 +86,7 @@ public class PedidoController {
     // Guardar un nuevo pedido
     @PostMapping
     public String savePedido(@RequestParam("referencias") String referenciasJson, @Valid @ModelAttribute Pedido pedido, BindingResult result, Model model) {
-        if (result.hasErrors()) {
+        if (result.hasErrors() || pedidoService.existsByNumped(pedido.getNumped())) {
             pedido.setFechaped(new Date());
             model.addAttribute("pedido", pedido);
             model.addAttribute("colecciones", coleccionService.findAll());
@@ -94,6 +94,8 @@ public class PedidoController {
             model.addAttribute("clientes", directorioService.findByClte("True"));
             model.addAttribute("productos", productoService.findAll());
             model.addAttribute("referenciasCompradas", referenciasJson != null ? referenciasJson : "[]"); // JSON o vacío    
+            result.rejectValue("numped", "error.pedido", "El Numero de Pedido ya existe. Por favor, usa otro.");
+            
             return "pedidos/create_pedido"; // Vuelve al formulario si hay errores
         }
                 ObjectMapper objectMapper = new ObjectMapper();
@@ -158,10 +160,11 @@ public class PedidoController {
     }
 
 
-    // Eliminar un pedido
-    @GetMapping("/delete/{id}")
-    public String deletePedido(@PathVariable Long id) {
-        pedidoService.deleteById(id);
+    @GetMapping("/delete/{numped}")
+    public String deletePedidos(@PathVariable("numped") String numped) {
+        pedidoService.deleteByNumped(numped);
         return "redirect:/pedidos"; // Redirige a la lista de pedidos
     }
+
+    
 }
