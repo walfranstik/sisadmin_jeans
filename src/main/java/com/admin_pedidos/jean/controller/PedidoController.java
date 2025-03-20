@@ -64,7 +64,7 @@ public class PedidoController {
         model.addAttribute("totalPages", pedidosPage.getTotalPages());
 
         return "pedidos/list_pedidos";
-    }
+        }
 
     // Mostrar un formulario para crear un nuevo pedido
     @GetMapping("/new")
@@ -87,7 +87,6 @@ public class PedidoController {
     @PostMapping
     public String savePedido(@RequestParam("referencias") String referenciasJson, @Valid @ModelAttribute Pedido pedido, BindingResult result, Model model) {
         if (result.hasErrors() || pedidoService.existsByNumped(pedido.getNumped())) {
-            pedido.setFechaped(new Date());
             model.addAttribute("pedido", pedido);
             model.addAttribute("colecciones", coleccionService.findAll());
             model.addAttribute("vendedores", directorioService.findByVddor("True"));

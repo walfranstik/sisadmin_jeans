@@ -12,7 +12,8 @@ public interface DirectorioRepository extends JpaRepository<Directorio, String> 
     boolean existsByNitdir(String nitdir);
     
     List<Directorio> findByVddor(String vddor);
-    List<Directorio> findByClte(String clte);
+    
+    List<Directorio> findByClteOrderByNomdirAsc(String clte);
     List<Directorio> findByNomdir(String nomdir);
 
 

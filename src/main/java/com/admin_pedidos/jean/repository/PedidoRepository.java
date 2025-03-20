@@ -23,7 +23,7 @@ public interface PedidoRepository extends JpaRepository<Pedido, Long > {
            "LOWER(p.numped) LIKE LOWER(CONCAT(:keyword)) OR " +
            "LOWER(p.ref) LIKE LOWER(CONCAT('%', :keyword , '%')) OR " +
             "CAST(p.fechaped AS string) LIKE CONCAT('%', :keyword, '%') " +
-           "ORDER BY p.fechaped DESC")
+           "ORDER BY p.id_pedido DESC")
     Page<Pedido> search(@Param("keyword") String keyword, Pageable pageable);
 
     List<Pedido> findByVddorAndCol(String vendedor, String col);

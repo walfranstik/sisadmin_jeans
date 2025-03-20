@@ -32,7 +32,7 @@ public class DirectorioService {
     }
 
     public List<Directorio> findByClte(String clte) {
-        return directorioRepository.findByClte(clte);
+        return directorioRepository.findByClteOrderByNomdirAsc(clte);
     }
 
     public Directorio save(Directorio directorio) {
