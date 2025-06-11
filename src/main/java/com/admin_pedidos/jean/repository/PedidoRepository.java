@@ -32,6 +32,8 @@ public interface PedidoRepository extends JpaRepository<Pedido, Long > {
 
     List<Pedido> findByRefAndCol(String ref, String col);
 
+    List<Pedido> findByRefAndColAndVddor(String ref, String col,String vendedor);
+
     List<Pedido> findByCol(String col);
 
     boolean existsByNumped(String numped);

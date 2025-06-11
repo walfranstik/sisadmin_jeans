@@ -51,12 +51,18 @@
 
           <div class="col-md-4 form-group">
             <label for="vendedor">Vendedor:</label>
-            <select class="form-select" id="vendedor" th:field="*{vddor}">
-            <option th:each="vendedor : ${vendedores}" 
+            <select class="form-select" id="vendedor" th:field="*{vddor}" onchange="cargarDatos()">
+              
+              <option value="">Seleccione un Vendedor...</option>
+            
+              <option th:each="vendedor : ${vendedores}" 
             th:value="${vendedor.nomdir}" 
             th:text="${vendedor.nomdir}"></option>              
             </select>
           </div>
+
+        
+
           <div class="col-md-3 form-group">
             <label for="coleccion">Coleccion</label>
             <select class="form-select" id="coleccion" th:field="*{col}" onchange="updateSelectReferencia()">
@@ -427,6 +433,45 @@
     
     <!-- Scripts -->
     <script  th:inline="javascript">
+
+      function cargarDatos() {
+        const nombreVddor = document.getElementById('vendedor').value;
+        let selectCliente = document.getElementById('cliente');  
+        selectCliente.innerHTML = ''; // Limpiar opciones previas  
+
+        let url = '/pedidos/obtener-clientes?';
+          if(nombreVddor) {
+              url += `nombreVddor=${nombreVddor}`; // Ya está codificado
+          } else {
+              return;
+          }
+
+        
+            fetch(url)
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Error en la solicitud');
+            }
+            return response.json();
+        })
+        .then(data => {
+            if(data) {
+              data.forEach(element => {  
+                let option = document.createElement('option');  
+                option.value = element.nomdir || '';  
+                option.textContent = element.nomdir || '';  
+                selectCliente.appendChild(option);  
+            });  
+             
+            }
+        })
+        .catch(error => console.error('Error:', error));
+    }
+
+
+
+
+
       document.addEventListener("DOMContentLoaded", function () {
         updateReferencia(); // Llama al método cuando el DOM esté listo
         updateSelectReferencia(); // Llama al método cuando el DOM esté listo

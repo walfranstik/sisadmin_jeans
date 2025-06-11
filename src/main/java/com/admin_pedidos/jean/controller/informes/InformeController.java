@@ -135,6 +135,50 @@ public class InformeController {
         generarPdf(response, "PEDIDOS DE LA REFERENCIA " + referencia + ": "+ descripcion +
         " -> Coleccion: " + coleccion, datos, true);
     }
+   
+   //informe por referencia y Vendedor
+   @GetMapping("/referencia-vendedor")
+    public String formReferenciaVendedor(Model model) {
+        model.addAttribute("colecciones", coleccionService.findAll());
+        model.addAttribute("referencias", productoService.findAll().stream()
+        .collect(Collectors.groupingBy(
+            Producto::getCole, // Agrupa por colección
+            Collectors.mapping(
+                producto -> new Object[]{producto.getRef(), producto.getDescref()},
+                Collectors.toList() // Colección de referencias y descripciones
+            )
+        )));
+
+        model.addAttribute("vendedores", directorioService.findByVddor("True"));
+
+
+        return "informes/referencia-vendedor";
+    }
+
+    @PostMapping("/referencia-vendedor")
+    public void generarInformeReferenciaVendedor(
+            @RequestParam String referencia,
+            @RequestParam String coleccion,
+            @RequestParam String descripcion,
+            @RequestParam String vendedor,
+            HttpServletResponse response) throws IOException {
+
+        List<Pedido> pedidos = pedidoService.findByRefAndColeccionAndVendedor(referencia, coleccion , vendedor);
+
+        Map<String, Map<String, Integer>> datos = new TreeMap<>(pedidos.stream()
+                .collect(Collectors.groupingBy(
+                        Pedido::getClte,
+                        Collectors.collectingAndThen(
+                                Collectors.toList(),
+                                lista -> lista.stream()
+                                        .map(this::extraerTallas)
+                                        .reduce(new HashMap<>(), this::combinarTallas)))));
+
+        generarPdf(response, "PEDIDOS DE LA REFERENCIA " + referencia  +
+        " -> Vendedor: " + vendedor, datos, true);
+    }
+   
+   
     // Informe por Colección
     @GetMapping("/coleccion")
     public String formColeccion(Model model) {

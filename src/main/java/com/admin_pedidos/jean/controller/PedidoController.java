@@ -7,6 +7,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -16,6 +17,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.admin_pedidos.jean.service.ColeccionService;
 import com.admin_pedidos.jean.service.DirectorioService;
@@ -23,6 +25,7 @@ import com.admin_pedidos.jean.service.PedidoService;
 import com.admin_pedidos.jean.service.ProductoService;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.admin_pedidos.jean.entity.Directorio;
 import com.admin_pedidos.jean.entity.Pedido;
 import com.admin_pedidos.jean.dto.Referencia;
 
@@ -81,6 +84,20 @@ public class PedidoController {
 
 
         return "pedidos/create_pedido"; // Renderiza la plantilla create_pedido.html en templates/pedidos
+    }
+
+       @GetMapping("/obtener-clientes")
+    @ResponseBody
+    public ResponseEntity<List<Directorio>> obtenerDatos(
+            @RequestParam(required = false) String nombreVddor) {
+
+        List<Directorio> directorio = null;
+        if (nombreVddor != null && !nombreVddor.isBlank()) {
+            directorio = directorioService.findByClteAndVddor("True",nombreVddor);
+        }
+
+        return ResponseEntity.ok(directorio);
+
     }
 
     // Guardar un nuevo pedido

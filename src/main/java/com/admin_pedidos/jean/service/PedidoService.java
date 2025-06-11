@@ -47,6 +47,10 @@ public class PedidoService {
         return pedidoRepository.findByRefAndCol(ref, coleccion);
     }
 
+    public List<Pedido> findByRefAndColeccionAndVendedor(String ref, String coleccion, String vendedor) {
+        return pedidoRepository.findByRefAndColAndVddor(ref, coleccion,vendedor);
+    }
+
     @Transactional
     public void deleteByNumped(String numped) {
         pedidoRepository.deleteByNumped(numped);

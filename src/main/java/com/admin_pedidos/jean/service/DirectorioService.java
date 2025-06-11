@@ -35,6 +35,10 @@ public class DirectorioService {
         return directorioRepository.findByClteOrderByNomdirAsc(clte);
     }
 
+    public List<Directorio> findByClteAndVddor(String clte, String vddor) {
+        return directorioRepository.findByClteAndNomvddorOrderByNomdirAsc(clte , vddor);
+    }
+
     public Directorio save(Directorio directorio) {
         return directorioRepository.save(directorio);
     }

@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>Informe Referencia</title>
+    <title>Referencia-Vendedor</title>
    
      <!-- Fonts and icons -->
      <script src="/assets/js/plugin/webfont/webfont.min.js"></script>
@@ -35,41 +35,50 @@
     <div class="wrapper">
         <div th:replace="~{fragments/sidebar :: sidebar}" ></div>
         <div class="main-panel">
-            <h1>Informe por Referencia</h1>
+            <h1>Informe por Referencia - Vendedor</h1>
     <!-- Template para Cliente por Colección -->
-        <form th:action="@{/informes/referencia-coleccion}" method="post">
+        <form th:action="@{/informes/referencia-vendedor}" method="post">
           
-          <div class="row">
-
-            <div class="col-md-6">
-              <select class="form-select" id="coleccion" name="coleccion" onchange="updateReferencias(),updateDescripcion()">
-                <option th:each="c : ${colecciones}" 
-                        th:value="${c.codcole}"
-                        th:text="${c.codcole}"></option>
-            </select>
-
-            </div>
-            <div class="col-md-6">
-
-              <select class="form-select" id="referencia" name="referencia" onchange="updateDescripcion()">
-                
-              </select>
-
-            </div>
-
+        <div class="row">
+    
+          <div class="col-md-4">
+            <select class="form-select" id="coleccion" name="coleccion" onchange="updateReferencias(),updateDescripcion()">
+              <option th:each="c : ${colecciones}" 
+                      th:value="${c.codcole}"
+                      th:text="${c.codcole}">
+              </option>
+          </select>
+    
           </div>
-            <input  type="hidden"
-            id="descripcion"
-            name="descripcion"
-            value=""
-            />
-            <button class="btn btn-black">
-              <span class="btn-label">
-                <i class="fas fa-file-export"></i>
-              </span>
-              Generar
-            </button>        
-          </form>
+          <div class="col-md-4">
+    
+            <select class="form-select" id="referencia" name="referencia" onchange="updateDescripcion()">
+              
+            </select>
+          </div>
+    
+          <div class="col-md-4">
+            <select class="form-select" name="vendedor">
+              <option th:each="v : ${vendedores}" 
+                      th:value="${v.nomdir}"
+                      th:text="${v.nomdir}">
+              </option>
+          </select>
+          </div>
+    
+        </div>
+          <input  type="hidden"
+          id="descripcion"
+          name="descripcion"
+          value=""
+          />
+          <button class="btn btn-black">
+            <span class="btn-label">
+              <i class="fas fa-file-export"></i>
+            </span>
+            Generar
+          </button>        
+        </form>
           
         </div></div>
     <!-- Scripts -->
